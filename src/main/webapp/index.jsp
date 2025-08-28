@@ -379,7 +379,7 @@
             <div class="game-grid">
                 <!-- 这里会通过JSP动态加载热门游戏 -->
                 <a href="game/detail/2" class="game-item">
-                    <img src="images/wzry.jpg" alt="王者荣耀" />
+                    <img src="images/wzry.svg" alt="王者荣耀" />
                     <div class="game-info">
                         <h3>王者荣耀</h3>
                         <p>MOBA</p>
@@ -390,7 +390,7 @@
                     </div>
                 </a>
                 <a href="game/detail/4" class="game-item">
-                    <img src="images/mc.jpg" alt="我的世界" />
+                    <img src="images/mc.svg" alt="我的世界" />
                     <div class="game-info">
                         <h3>我的世界</h3>
                         <p>沙盒</p>
@@ -401,7 +401,7 @@
                     </div>
                 </a>
                 <a href="game/detail/5" class="game-item">
-                    <img src="images/hpjy.jpg" alt="和平精英" />
+                    <img src="images/hpjy.svg" alt="和平精英" />
                     <div class="game-info">
                         <h3>和平精英</h3>
                         <p>射击</p>
@@ -412,7 +412,7 @@
                     </div>
                 </a>
                 <a href="game/detail/3" class="game-item">
-                    <img src="images/mnsj.jpg" alt="迷你世界" />
+                    <img src="images/mnsj.svg" alt="迷你世界" />
                     <div class="game-info">
                         <h3>迷你世界</h3>
                         <p>沙盒</p>
@@ -467,7 +467,7 @@
             <div class="ranking-item">
                 <div class="ranking-number top1">1</div>
                 <div class="ranking-game-info">
-                    <img src="images/wzry.jpg" alt="王者荣耀">
+                    <img src="images/wzry.svg" alt="王者荣耀">
                     <div class="ranking-game-details">
                         <h3>王者荣耀</h3>
                         <p>MOBA • 987万次播放</p>
@@ -489,7 +489,7 @@
             <div class="ranking-item">
                 <div class="ranking-number top3">3</div>
                 <div class="ranking-game-info">
-                    <img src="images/mc.jpg" alt="我的世界">
+                    <img src="images/mc.svg" alt="我的世界">
                     <div class="ranking-game-details">
                         <h3>我的世界</h3>
                         <p>沙盒 • 876万次播放</p>
@@ -511,7 +511,7 @@
             <div class="ranking-item">
                 <div class="ranking-number other">5</div>
                 <div class="ranking-game-info">
-                    <img src="images/hpjy.jpg" alt="和平精英">
+                    <img src="images/hpjy.svg" alt="和平精英">
                     <div class="ranking-game-details">
                         <h3>和平精英</h3>
                         <p>射击 • 654万次播放</p>
