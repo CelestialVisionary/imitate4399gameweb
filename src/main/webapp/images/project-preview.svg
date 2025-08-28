@@ -1,74 +1,166 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <!-- 导航栏渐变 -->
+    <linearGradient id="navGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff5252"/>
+      <stop offset="100%" stop-color="#ff6b6b"/>
+    </linearGradient>
+    <!-- 分类标签渐变 -->
+    <linearGradient id="casualGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#48dbfb"/>
+      <stop offset="100%" stop-color="#0abde3"/>
+    </linearGradient>
+    <linearGradient id="puzzleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1dd1a1"/>
+      <stop offset="100%" stop-color="#10ac84"/>
+    </linearGradient>
+    <linearGradient id="actionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5f27cd"/>
+      <stop offset="100%" stop-color="#341f97"/>
+    </linearGradient>
+    <linearGradient id="shooterGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff9ff3"/>
+      <stop offset="100%" stop-color="#f368e0"/>
+    </linearGradient>
+    <linearGradient id="racingGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff6348"/>
+      <stop offset="100%" stop-color="#ee5253"/>
+    </linearGradient>
+    <!-- 游戏卡片渐变 -->
+    <linearGradient id="cardGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#54a0ff"/>
+      <stop offset="100%" stop-color="#2e86de"/>
+    </linearGradient>
+    <linearGradient id="cardGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff9f43"/>
+      <stop offset="100%" stop-color="#f39c12"/>
+    </linearGradient>
+    <linearGradient id="cardGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ee5253"/>
+      <stop offset="100%" stop-color="#c0392b"/>
+    </linearGradient>
+    <linearGradient id="cardGradient4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10ac84"/>
+      <stop offset="100%" stop-color="#0d9473"/>
+    </linearGradient>
+    <!-- 阴影滤镜 -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="rgba(0,0,0,0.2)"/>
+    </filter>
+  </defs>
+  <defs>
+    <!-- 主渐变背景 - 增强层次感 -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cc5500"/>
+      <stop offset="30%" stop-color="#dd6611"/>
+      <stop offset="50%" stop-color="#994400"/>
+      <stop offset="70%" stop-color="#773300"/>
+      <stop offset="100%" stop-color="#663300"/>
+    </linearGradient>
+    <!-- 标志渐变 - 增强色彩过渡 -->
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a7d47"/>
+      <stop offset="40%" stop-color="#219653"/>
+      <stop offset="50%" stop-color="#146236"/>
+      <stop offset="60%" stop-color="#0f572e"/>
+      <stop offset="100%" stop-color="#0d4b29"/>
+    </linearGradient>
+    <!-- 文字渐变 -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#000000"/>
+      <stop offset="50%" stop-color="#222222"/>
+      <stop offset="100%" stop-color="#111111"/>
+    </linearGradient>
+    <!-- 玻璃质感渐变 -->
+    <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
+      <stop offset="50%" stop-color="rgba(200,220,255,0.1)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.3)"/>
+    </linearGradient>
+    <!-- 发光滤镜 -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <!-- 影子渐变 -->
+    <linearGradient id="shadowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(0,0,0,0.6)"/>
+      <stop offset="50%" stop-color="rgba(0,0,0,0.3)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.05)"/>
+    </linearGradient>
+    <!-- 装饰圆渐变 -->
+    <radialGradient id="circleGradient1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="rgba(153, 0, 0, 0.6)"/>
+      <stop offset="100%" stop-color="rgba(153, 0, 0, 0)"/>
+    </radialGradient>
+    <radialGradient id="circleGradient2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="rgba(0, 51, 102, 0.6)"/>
+      <stop offset="100%" stop-color="rgba(0, 51, 102, 0)"/>
+    </radialGradient>
+  </defs>
   <!-- 背景 -->
-  <rect width="800" height="400" fill="#f5f5f5"/>
+  <rect width="800" height="400" fill="url(#bgGradient)"/>
   
-  <!-- 顶部导航栏 -->
-  <rect x="0" y="0" width="800" height="60" fill="#ff6b6b"/>
+  <!-- 装饰圆形 - 优化布局与层次 -->
+  <circle cx="220" cy="130" r="90" fill="url(#circleGradient1)" filter="url(#shadow)"/>
+  <circle cx="220" cy="130" r="15" fill="#ff3333" filter="url(#shadow)"/>
+  <circle cx="580" cy="270" r="110" fill="url(#circleGradient2)" filter="url(#shadow)"/>
+  <!-- 点缀光效 -->
+  <circle cx="680" cy="120" r="15" fill="rgba(255, 255, 255, 0.3)" filter="url(#glow)"/>
+  <circle cx="120" cy="320" r="10" fill="rgba(255, 255, 255, 0.2)" filter="url(#glow)"/>
+  <!-- 学习象征书本元素 - 增强细节 -->
+  <path d="M370,170 L430,170 L425,215 L375,215 Z" fill="black" filter="url(#shadow)" transform="rotate(-5, 400, 192)"/>
+  <path d="M378,178 L422,178 L419,212 L381,212 Z" fill="#cc5500" filter="url(#shadow)"/>
+  <line x1="395" y1="178" x2="395" y2="212" stroke="black" stroke-width="2" filter="url(#shadow)"/>
+  <path d="M422,183 L435,178 L430,208 L422,205 Z" fill="#990000" filter="url(#shadow)"/>
+  <!-- 书页细节 -->
+  <path d="M375,175 L380,173 L378,210 L373,212 Z" fill="#5d4037" filter="url(#shadow)"/>
   
-  <!-- 网站标志 -->
-  <rect x="30" y="10" width="120" height="40" fill="#ffffff" rx="5"/>
-  <text x="90" y="35" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#ff6b6b">4399游戏</text>
+  <!-- 主标志与镜像反射（增强艺术性） -->
+      <!-- 原始标志 -->
+      <g transform="translate(-45, 0)">
+        <path d="M400,140 L490,260 L310,260 Z" fill="url(#logoGradient)" filter="url(#shadow)"/>
+        <text x="400" y="220" font-family="'Arial Black', sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="black" filter="url(#glow)">4399</text>
+      </g>
+      <!-- 镜子反射效果（增强光影层次） -->
+      <g transform="translate(225, 0) scale(-1, 1)">
+        <path d="M400,140 L490,260 L310,260 Z" fill="url(#logoGradient)" filter="url(#shadow) blur(1px)" opacity="0.6"/>
+        <text x="400" y="220" font-family="'Arial Black', sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="black" filter="url(#glow) blur(0.8px)" opacity="0.6">4399</text>
+        <!-- 玻璃质感细节 -->
+        <path d="M350,150 L450,150 L440,240 L360,240 Z" fill="url(#glassGradient)" opacity="0.25"/>
+        <path d="M360,160 L440,180 L430,230 L370,210 Z" fill="white" opacity="0.15"/>
+        <path d="M370,155 L430,165 L425,200 L380,190 Z" fill="white" opacity="0.08"/>
+        <!-- 镜面轻微扭曲效果 -->
+        <path d="M355,155 Q400,145 445,155 L435,235 Q400,245 365,235 Z" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      </g>
+      <!-- 艺术化镜子边框 -->
+      <linearGradient id="mirrorFrameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#a0a0a0"/>
+          <stop offset="30%" stop-color="#d0d0d0"/>
+          <stop offset="50%" stop-color="#ffffff"/>
+          <stop offset="70%" stop-color="#d0d0d0"/>
+          <stop offset="100%" stop-color="#a0a0a0"/>
+        </linearGradient>
+      <rect x="495" y="135" width="8" height="125" rx="1" fill="url(#mirrorFrameGradient)" filter="url(#shadow)"/>
+      <rect x="492" y="132" width="14" height="131" rx="2" fill="#333333" filter="url(#shadow)"/>
+      <!-- 装饰性镜子底座 -->
+        <path d="M485,260 L513,260 L518,270 L480,270 Z" fill="#555555" filter="url(#shadow)"/>
+        <!-- 镜子投影 -->
+        <path d="M475,270 L525,270 L520,290 L480,290 Z" fill="url(#shadowGradient)" opacity="0.4"/>
+        <!-- 底座延伸阴影 -->
+        <path d="M480,290 L520,290 L518,300 L482,300 Z" fill="url(#shadowGradient)" opacity="0.2"/>
+        <!-- 镜面光效 -->
+        <path d="M495,140 L503,140 L503,255 L495,255 Z" fill="white" opacity="0.15"/>
+        <!-- 反射面阴影层次 -->
+        <path d="M350,240 L450,240 L445,250 L355,250 Z" fill="black" opacity="0.15" filter="url(#shadow) blur(1.5px)"/>
+        <!-- 镜身侧面阴影 -->
+        <path d="M503,140 L510,145 L510,250 L503,255 Z" fill="url(#shadowGradient)" opacity="0.3"/>
   
-  <!-- 导航链接 -->
-  <text x="180" y="35" font-family="Arial" font-size="16" fill="#ffffff">首页</text>
-  <text x="240" y="35" font-family="Arial" font-size="16" fill="#ffffff">分类</text>
-  <text x="300" y="35" font-family="Arial" font-size="16" fill="#ffffff">最新</text>
-  <text x="360" y="35" font-family="Arial" font-size="16" fill="#ffffff">排行榜</text>
-  
-  <!-- 搜索框 -->
-  <rect x="500" y="15" width="250" height="30" fill="#ffffff" rx="15"/>
-  <text x="520" y="33" font-family="Arial" font-size="14" fill="#cccccc">搜索游戏...</text>
-  
-  <!-- 游戏分类区 -->
-  <rect x="20" y="80" width="760" height="60" fill="#ffffff" rx="5"/>
-  <text x="400" y="115" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#333333">游戏分类</text>
-  
-  <!-- 分类标签 -->
-  <rect x="100" y="105" width="80" height="30" fill="#48dbfb" rx="15"/>
-  <text x="140" y="125" font-family="Arial" font-size="14" text-anchor="middle" fill="#ffffff">休闲</text>
-  
-  <rect x="200" y="105" width="80" height="30" fill="#1dd1a1" rx="15"/>
-  <text x="240" y="125" font-family="Arial" font-size="14" text-anchor="middle" fill="#ffffff">益智</text>
-  
-  <rect x="300" y="105" width="80" height="30" fill="#5f27cd" rx="15"/>
-  <text x="340" y="125" font-family="Arial" font-size="14" text-anchor="middle" fill="#ffffff">动作</text>
-  
-  <rect x="400" y="105" width="80" height="30" fill="#ff9ff3" rx="15"/>
-  <text x="440" y="125" font-family="Arial" font-size="14" text-anchor="middle" fill="#ffffff">射击</text>
-  
-  <rect x="500" y="105" width="80" height="30" fill="#ff6348" rx="15"/>
-  <text x="540" y="125" font-family="Arial" font-size="14" text-anchor="middle" fill="#ffffff">赛车</text>
-  
-  <!-- 热门游戏区域 -->
-  <rect x="20" y="160" width="760" height="220" fill="#ffffff" rx="5"/>
-  <text x="400" y="190" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#333333">热门游戏推荐</text>
-  
-  <!-- 游戏卡片 -->
-  <rect x="40" y="210" width="140" height="160" fill="#f8f9fa" rx="5"/>
-  <rect x="40" y="210" width="140" height="100" fill="#54a0ff"/>
-  <text x="110" y="260" font-family="Arial" font-size="14" text-anchor="middle" fill="#ffffff">游戏1</text>
-  <text x="110" y="290" font-family="Arial" font-size="12" text-anchor="middle" fill="#666666">益智游戏</text>
-  <text x="110" y="310" font-family="Arial" font-size="12" text-anchor="middle" fill="#666666">100万次播放</text>
-  
-  <rect x="200" y="210" width="140" height="160" fill="#f8f9fa" rx="5"/>
-  <rect x="200" y="210" width="140" height="100" fill="#ff9f43"/>
-  <text x="270" y="260" font-family="Arial" font-size="14" text-anchor="middle" fill="#ffffff">游戏2</text>
-  <text x="270" y="290" font-family="Arial" font-size="12" text-anchor="middle" fill="#666666">动作游戏</text>
-  <text x="270" y="310" font-family="Arial" font-size="12" text-anchor="middle" fill="#666666">80万次播放</text>
-  
-  <rect x="360" y="210" width="140" height="160" fill="#f8f9fa" rx="5"/>
-  <rect x="360" y="210" width="140" height="100" fill="#ee5253"/>
-  <text x="430" y="260" font-family="Arial" font-size="14" text-anchor="middle" fill="#ffffff">游戏3</text>
-  <text x="430" y="290" font-family="Arial" font-size="12" text-anchor="middle" fill="#666666">射击游戏</text>
-  <text x="430" y="310" font-family="Arial" font-size="12" text-anchor="middle" fill="#666666">60万次播放</text>
-  
-  <rect x="520" y="210" width="140" height="160" fill="#f8f9fa" rx="5"/>
-  <rect x="520" y="210" width="140" height="100" fill="#10ac84"/>
-  <text x="590" y="260" font-family="Arial" font-size="14" text-anchor="middle" fill="#ffffff">游戏4</text>
-  <text x="590" y="290" font-family="Arial" font-size="12" text-anchor="middle" fill="#666666">休闲游戏</text>
-  <text x="590" y="310" font-family="Arial" font-size="12" text-anchor="middle" fill="#666666">50万次播放</text>
-  
-  <!-- 页脚 -->
-  <rect x="0" y="380" width="800" height="20" fill="#333333"/>
-  <text x="400" y="395" font-family="Arial" font-size="10" text-anchor="middle" fill="#ffffff">© 2023 4399游戏网站模仿项目 - 仅用于学习目的</text>
+  <!-- 系统名称 -->
+  <rect x="220" y="270" width="360" height="50" rx="10" fill="rgba(153,51,0,0.8)" filter="url(#shadow)"/>
+  <text x="400" y="298" font-family="'Segoe UI', Arial, sans-serif" font-size="44" font-weight="bold" text-anchor="middle" fill="url(#textGradient)" filter="url(#shadow) drop-shadow(0 0 5px #ffcc00)" stroke="#cc5500" stroke-width="1.8">imitate4399gameweb</text>
+  <text x="400" y="350" font-family="'Microsoft YaHei', sans-serif" font-size="22" text-anchor="middle" fill="rgba(0,0,0,0.8)">游戏平台</text>
+  <!-- 装饰线条 -->
+  <path d="M250,320 Q400,330 550,320" stroke="rgba(153,51,0,0.5)" stroke-width="1" fill="none"/>
+  <!-- <text x="400" y="380" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="rgba(255,255,255,0.7)">您的游戏娱乐中心</text> -->
 </svg>

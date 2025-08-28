@@ -1,8 +1,9 @@
 # imitate4399gameweb
 
 <div align="center">
-  <img src="src/main/webapp/images/project-preview.svg" alt="项目预览图" />
-  <p><em>4399游戏网站模仿项目 - 首页预览</em></p>
+  <img src="src/main/webapp/images/project-preview.svg" alt="4399游戏网站模仿项目Logo" width="400" height="200" />
+  <h2><strong>4399游戏网站模仿项目</strong></h2>
+  <p>基于现代Web技术构建的游戏平台前端实现</p>
 </div>
 
 ## 项目介绍
