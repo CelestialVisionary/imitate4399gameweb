@@ -45,6 +45,7 @@
             text-decoration: none;
             font-size: 16px;
         }
+        nav ul li.auth-item { margin-left: auto; }
         nav ul li a:hover {
             color: #ff6600;
         }
@@ -326,7 +327,9 @@
                 <li><a href="game/category?name=策略">策略</a></li>
                 <li><a href="game/category?name=角色扮演">角色扮演</a></li>
                 <li><a href="game/category?name=射击">射击</a></li>
-            </ul>
+                    <li class="auth-item"><a href="login">登录</a></li>
+        <li class="auth-item"><a href="register">注册</a></li>
+    </ul>
         </div>
     </nav>
     
