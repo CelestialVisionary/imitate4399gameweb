@@ -176,6 +176,124 @@
         .btn-view-all:hover {
             background-color: #e55d00;
         }
+        /* 排行榜样式 */
+        .ranking-section {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .ranking-section h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #ff6600;
+            padding-bottom: 10px;
+        }
+        .ranking-list {
+            margin-top: 20px;
+        }
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+        .ranking-item:hover {
+            background-color: #f9f9f9;
+        }
+        .ranking-number {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .ranking-number.top1 {
+            background-color: #ffd700;
+            color: #333;
+        }
+        .ranking-number.top2 {
+            background-color: #c0c0c0;
+            color: #333;
+        }
+        .ranking-number.top3 {
+            background-color: #cd7f32;
+            color: white;
+        }
+        .ranking-number.other {
+            background-color: #eee;
+            color: #666;
+        }
+        .ranking-game-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        .ranking-game-info img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+        .ranking-game-details {
+            flex: 1;
+        }
+        .ranking-game-details h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+        }
+        .ranking-game-details p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .ranking-stats {
+            color: #ff6600;
+            font-weight: bold;
+        }
+        /* 轮播图样式 */
+        .carousel-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin: 20px 0;
+        }
+        .carousel-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            height: 300px;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+        .indicator.active {
+            background-color: #ff6600;
+        }
         footer {
             background-color: #333;
             color: white;
@@ -211,6 +329,26 @@
             </ul>
         </div>
     </nav>
+    
+    <!-- 轮播图组件 -->
+    <div class="carousel-container">
+        <div class="carousel-slider">
+            <div class="carousel-slide active">
+                <img src="images/carousel1.svg" alt="热门游戏推荐" />
+            </div>
+            <div class="carousel-slide">
+                <img src="images/carousel2.svg" alt="新品游戏上线" />
+            </div>
+            <div class="carousel-slide">
+                <img src="images/carousel3.svg" alt="游戏活动宣传" />
+            </div>
+        </div>
+        <div class="carousel-indicators">
+            <span class="indicator active"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+        </div>
+    </div>
     
     <div class="container">
         <div class="search-box">
@@ -284,9 +422,105 @@
                         </div>
                     </div>
                 </a>
+                <a href="game/detail/6" class="game-item">
+                    <img src="images/puzzle.svg" alt="拼图游戏" />
+                    <div class="game-info">
+                        <h3>拼图游戏</h3>
+                        <p>益智</p>
+                        <div class="game-stats">
+                            <span>123万次播放</span>
+                            <span>评分：4.7</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="game/detail/7" class="game-item">
+                    <img src="images/racing.svg" alt="赛车游戏" />
+                    <div class="game-info">
+                        <h3>赛车游戏</h3>
+                        <p>体育</p>
+                        <div class="game-stats">
+                            <span>456万次播放</span>
+                            <span>评分：4.5</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="game/detail/8" class="game-item">
+                    <img src="images/shooter.svg" alt="射击游戏" />
+                    <div class="game-info">
+                        <h3>射击游戏</h3>
+                        <p>射击</p>
+                        <div class="game-stats">
+                            <span>789万次播放</span>
+                            <span>评分：4.8</span>
+                        </div>
+                    </div>
+                </a>
             </div>
             <a href="game" class="btn-view-all">查看更多热门游戏</a>
         </div>
+    </div>
+    
+    <!-- 游戏排行榜 -->
+    <div class="ranking-section">
+        <h2>游戏排行榜</h2>
+        <div class="ranking-list">
+            <div class="ranking-item">
+                <div class="ranking-number top1">1</div>
+                <div class="ranking-game-info">
+                    <img src="images/wzry.jpg" alt="王者荣耀">
+                    <div class="ranking-game-details">
+                        <h3>王者荣耀</h3>
+                        <p>MOBA • 987万次播放</p>
+                    </div>
+                </div>
+                <div class="ranking-stats">↑ 2</div>
+            </div>
+            <div class="ranking-item">
+                <div class="ranking-number top2">2</div>
+                <div class="ranking-game-info">
+                    <img src="images/shooter.svg" alt="射击游戏">
+                    <div class="ranking-game-details">
+                        <h3>射击游戏</h3>
+                        <p>射击 • 789万次播放</p>
+                    </div>
+                </div>
+                <div class="ranking-stats">↓ 1</div>
+            </div>
+            <div class="ranking-item">
+                <div class="ranking-number top3">3</div>
+                <div class="ranking-game-info">
+                    <img src="images/mc.jpg" alt="我的世界">
+                    <div class="ranking-game-details">
+                        <h3>我的世界</h3>
+                        <p>沙盒 • 876万次播放</p>
+                    </div>
+                </div>
+                <div class="ranking-stats">↑ 3</div>
+            </div>
+            <div class="ranking-item">
+                <div class="ranking-number other">4</div>
+                <div class="ranking-game-info">
+                    <img src="images/racing.svg" alt="赛车游戏">
+                    <div class="ranking-game-details">
+                        <h3>赛车游戏</h3>
+                        <p>体育 • 456万次播放</p>
+                    </div>
+                </div>
+                <div class="ranking-stats">→</div>
+            </div>
+            <div class="ranking-item">
+                <div class="ranking-number other">5</div>
+                <div class="ranking-game-info">
+                    <img src="images/hpjy.jpg" alt="和平精英">
+                    <div class="ranking-game-details">
+                        <h3>和平精英</h3>
+                        <p>射击 • 654万次播放</p>
+                    </div>
+                </div>
+                <div class="ranking-stats">↓ 2</div>
+            </div>
+        </div>
+    </div>
     </div>
     
     <footer>
@@ -299,5 +533,35 @@
             <p>© 2004 - 2025 4399.com All Rights Reserved. 四三九九网络股份有限公司 版权所有</p>
         </div>
     </footer>
+    <script>
+        // 轮播图交互
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            let currentIndex = 0;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                indicators.forEach((indicator, i) => {
+                    indicator.classList.toggle('active', i === index);
+                });
+            }
+
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    currentIndex = index;
+                    showSlide(currentIndex);
+                });
+            });
+
+            // 自动轮播
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % slides.length;
+                showSlide(currentIndex);
+            }, 5000);
+        });
+    </script>
 </body>
 </html>

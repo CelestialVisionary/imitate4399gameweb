@@ -1,15 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
   <defs>
-    <!-- 导航栏渐变 -->
-    <linearGradient id="navGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ff5252"/>
-      <stop offset="100%" stop-color="#ff6b6b"/>
-    </linearGradient>
-    <!-- 分类标签渐变 -->
-    <linearGradient id="casualGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#48dbfb"/>
-      <stop offset="100%" stop-color="#0abde3"/>
-    </linearGradient>
     <linearGradient id="puzzleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#1dd1a1"/>
       <stop offset="100%" stop-color="#10ac84"/>
@@ -113,8 +103,6 @@
   <path d="M378,178 L422,178 L419,212 L381,212 Z" fill="#cc5500" filter="url(#shadow)"/>
   <line x1="395" y1="178" x2="395" y2="212" stroke="black" stroke-width="2" filter="url(#shadow)"/>
   <path d="M422,183 L435,178 L430,208 L422,205 Z" fill="#990000" filter="url(#shadow)"/>
-  <!-- 书页细节 -->
-  <path d="M375,175 L380,173 L378,210 L373,212 Z" fill="#5d4037" filter="url(#shadow)"/>
   
   <!-- 主标志与镜像反射（增强艺术性） -->
       <!-- 原始标志 -->
