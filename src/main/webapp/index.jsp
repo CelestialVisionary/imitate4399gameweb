@@ -200,10 +200,14 @@
             <ul>
                 <li><a href="index.jsp">首页</a></li>
                 <li><a href="game/all">全部游戏</a></li>
-                <li><a href="game">热门游戏</a></li>
-                <li><a href="game/category?name=策略">策略游戏</a></li>
+                <li><a href="game/new">最新上线</a></li>
+                <li><a href="game/hot">热门游戏</a></li>
+                <li><a href="game/category">分类大全</a></li>
+                <li><a href="game/minigame">小游戏</a></li>
+                <li><a href="game/webgame">网页游戏</a></li>
+                <li><a href="game/category?name=策略">策略</a></li>
                 <li><a href="game/category?name=角色扮演">角色扮演</a></li>
-                <li><a href="game/category?name=射击">射击游戏</a></li>
+                <li><a href="game/category?name=射击">射击</a></li>
             </ul>
         </div>
     </nav>
@@ -224,6 +228,11 @@
                 <a href="game/category?name=沙盒" class="category-item">沙盒</a>
                 <a href="game/category?name=射击" class="category-item">射击</a>
                 <a href="game/category?name=角色扮演" class="category-item">角色扮演</a>
+                <a href="game/category?name=休闲" class="category-item">休闲</a>
+                <a href="game/category?name=益智" class="category-item">益智</a>
+                <a href="game/category?name=动作" class="category-item">动作</a>
+                <a href="game/category?name=冒险" class="category-item">冒险</a>
+                <a href="game/category?name=体育" class="category-item">体育</a>
             </div>
         </div>
         
@@ -284,7 +293,10 @@
         <div class="container">
             <p>抵制不良游戏，拒绝盗版游戏，注意自我保护，谨防受骗上当</p>
             <p>适度游戏益脑，沉迷游戏伤身，合理安排时间，享受健康生活</p>
-            <p>© 2025 4399小游戏 版权所有</p>
+            <p>闽网文〔2024〕4287-092号 | （署）网出证（闽）字第015号 | ICP证闽B2-20040099</p>
+            <p>闽公网安备 35020302000081号 | 公司地址：厦门市厦门火炬高新区软件园二期望海路2号楼202室</p>
+            <p>举报电话：4006834399(转6) | 举报邮箱：jubao@4399.com</p>
+            <p>© 2004 - 2025 4399.com All Rights Reserved. 四三九九网络股份有限公司 版权所有</p>
         </div>
     </footer>
 </body>
