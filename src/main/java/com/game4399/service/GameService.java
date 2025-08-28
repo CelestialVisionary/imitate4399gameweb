@@ -1,0 +1,43 @@
+package com.game4399.service;
+
+import com.game4399.model.Game;
+import java.util.List;
+
+/**
+ * 游戏服务接口，定义游戏相关的服务方法
+ */
+public interface GameService {
+    /**
+     * 获取所有游戏
+     * @return 游戏列表
+     */
+    List<Game> getAllGames();
+    
+    /**
+     * 根据ID获取游戏
+     * @param id 游戏ID
+     * @return 游戏对象
+     */
+    Game getGameById(int id);
+    
+    /**
+     * 根据分类获取游戏
+     * @param category 游戏分类
+     * @return 游戏列表
+     */
+    List<Game> getGamesByCategory(String category);
+    
+    /**
+     * 搜索游戏
+     * @param keyword 搜索关键词
+     * @return 游戏列表
+     */
+    List<Game> searchGames(String keyword);
+    
+    /**
+     * 获取热门游戏
+     * @param limit 获取的数量
+     * @return 热门游戏列表
+     */
+    List<Game> getHotGames(int limit);
+}
