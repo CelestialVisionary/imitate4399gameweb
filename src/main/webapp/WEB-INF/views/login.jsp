@@ -18,6 +18,8 @@
         .btn-login:hover { background-color: #e55d00; }
         .register-link { text-align: center; margin-top: 15px; }
         .register-link a { color: #ff6600; text-decoration: none; }
+        .error-message { background-color: #ffebee; color: #c62828; padding: 10px; border-radius: 4px; margin-bottom: 15px; border: 1px solid #ffcdd2; }
+        .success-message { background-color: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 4px; margin-bottom: 15px; border: 1px solid #a5d6a7; }
     </style>
 </head>
 <body>
@@ -27,6 +29,21 @@
     <div class="container">
         <div class="login-box">
             <h2>账号登录</h2>
+            
+            <!-- 显示错误消息 -->
+            <% if (request.getAttribute("errorMessage") != null) { %>
+                <div class="error-message">
+                    <%= request.getAttribute("errorMessage") %>
+                </div>
+            <% } %>
+            
+            <!-- 显示成功消息 -->
+            <% if (request.getAttribute("successMessage") != null) { %>
+                <div class="success-message">
+                    <%= request.getAttribute("successMessage") %>
+                </div>
+            <% } %>
+            
             <form action="login" method="post">
                 <div class="form-group">
                     <label for="username">用户名</label>
@@ -38,7 +55,7 @@
                 </div>
                 <button type="submit" class="btn-login">登录</button>
                 <div class="register-link">
-                    还没有账号？<a href="register.jsp">立即注册</a>
+                    还没有账号？<a href="register">立即注册</a>
                 </div>
             </form>
         </div>
