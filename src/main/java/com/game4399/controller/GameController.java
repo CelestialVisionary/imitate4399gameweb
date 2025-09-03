@@ -93,7 +93,45 @@ public class GameController extends HttpServlet {
             Game game = gameService.getGameById(id);
             if (game != null) {
                 request.setAttribute("game", game);
+                
+                // 获取相关游戏
+                List<Game> relatedGames = gameService.getRelatedGames(game.getId(), game.getCategory(), 4);
+                request.setAttribute("relatedGames", relatedGames);
+                
                 request.getRequestDispatcher("/WEB-INF/views/gameDetail.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/game");
+            }
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            response.sendRedirect(request.getContextPath() + "/game");
+        }
+    }
+    
+    /**
+     * 处理游戏播放请求
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String pathInfo = request.getPathInfo();
+        
+        if (pathInfo != null && pathInfo.startsWith("/play/")) {
+            playGame(request, response);
+        }
+    }
+    
+    private void playGame(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            String idStr = request.getPathInfo().substring("/play/".length());
+            int id = Integer.parseInt(idStr);
+            
+            // 更新游戏播放次数
+            gameService.updatePlayCount(id);
+            
+            // 获取游戏信息
+            Game game = gameService.getGameById(id);
+            if (game != null) {
+                // 重定向到游戏播放页面
+                response.sendRedirect(request.getContextPath() + "/" + game.getPlayUrl());
             } else {
                 response.sendRedirect(request.getContextPath() + "/game");
             }

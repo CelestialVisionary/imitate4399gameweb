@@ -13,9 +13,10 @@
 ## 技术栈
 
 - **后端**：Java、Servlet
+- **数据库**：MySQL
 - **构建工具**：Maven
 - **Web服务器**：Tomcat 7
-- **前端**：HTML、CSS、JavaScript
+- **前端**：HTML、CSS、JavaScript、JSP、JSTL
 - **版本控制**：Git
 
 ## 项目结构
@@ -25,11 +26,14 @@
 ├── LICENSE              # 许可证文件
 ├── README.md            # 项目说明文档
 ├── pom.xml              # Maven项目配置文件
-├── project_status/      # 项目状态文档目录
+├── project_status.md    # 项目状态文档
+├── sql/                 # 数据库脚本目录
+│   └── create_database.sql  # 创建数据库和表的脚本
 ├── src/                 # 源代码目录
 │   └── main/
 │       ├── java/        # Java源代码
 │       └── webapp/      # Web资源
+│           ├── WEB-INF/ # Web应用配置目录
 │           └── images/  # 图片资源
 └── target/              # 构建输出目录
 ```
@@ -37,13 +41,15 @@
 ## 功能模块
 
 ### 核心功能
-1. **游戏展示**：热门游戏推荐、分类浏览、最新上线游戏（规划中）
-2. **搜索功能**：支持按游戏名称搜索（开发中）
-3. **游戏分类**：休闲、益智、动作、射击、赛车等多种游戏类别（规划中）
+1. **游戏展示**：热门游戏推荐、分类浏览、游戏详情页
+2. **搜索功能**：支持按游戏名称搜索
+3. **游戏分类**：休闲、益智、动作、射击、赛车等多种游戏类别
 4. **用户交互**：游戏评论、评分系统（开发中）
 ### 特色功能
 - **响应式设计**：适配不同屏幕尺寸的设备
-- **游戏标签系统**：支持通过标签快速筛选游戏
+- **游戏详情展示**：包含游戏介绍、截图、评分、播放次数等信息
+- **相关游戏推荐**：基于游戏分类推荐相似游戏
+- **数据库支持**：使用MySQL存储游戏数据
 - **个性化推荐**：基于用户行为推荐游戏（规划中）
 - **游戏收藏**：用户可收藏喜爱的游戏（开发中）
 
@@ -53,12 +59,28 @@
 - JDK 1.7 或更高版本
 - Maven 3.0 或更高版本
 - Tomcat 7（可选，Maven插件已集成）
+- MySQL 5.5 或更高版本
 
 ### 克隆项目
 
 ```bash
 git clone https://github.com/your-username/imitate4399gameweb.git
 cd imitate4399gameweb
+```
+
+### 数据库初始化
+
+在启动项目前，需要先初始化数据库：
+
+1. 确保MySQL服务已启动
+2. 登录MySQL，创建数据库并执行初始化脚本：
+
+```bash
+mysql -u root -p
+> CREATE DATABASE game4399db;
+> USE game4399db;
+> SOURCE d:\imitate4399gameweb\sql\create_database.sql;
+> EXIT;
 ```
 
 ### 使用Maven插件运行

@@ -102,9 +102,138 @@
             border-radius: 5px;
             margin-top: 10px;
             transition: background-color 0.3s ease;
+            cursor: pointer;
+            border: none;
         }
         .btn-play:hover {
             background-color: #e55d00;
+        }
+        
+        /* 游戏详情区域样式 */
+        .game-content {
+            display: flex;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .game-main-info {
+            flex: 2;
+        }
+        
+        .game-sidebar {
+            flex: 1;
+        }
+        
+        .game-screenshots {
+            margin-bottom: 30px;
+        }
+        
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .screenshot-item {
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .game-stats {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            color: #666;
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .game-system-requirements {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .req-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .req-item {
+            padding: 5px 0;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .container {
+                width: 100%;
+                padding: 0 20px;
+            }
+            
+            .game-content {
+                flex-direction: column;
+            }
+            
+            .screenshots-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .game-header {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-image {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .game-meta {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .related-games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         .game-description {
             margin: 20px 0;
@@ -200,26 +329,90 @@
                                 <span>${game.rating}</span>
                             </div>
                         </div>
-                        <a href="${pageContext.request.contextPath}/${game.playUrl}" class="btn-play">开始游戏</a>
+                        <form action="${pageContext.request.contextPath}/game/play/${game.id}" method="post">
+                            <button type="submit" class="btn-play">开始游戏</button>
+                        </form>
                     </div>
                 </div>
                 
-                <div class="game-description">
-                    <p>${game.description}</p>
+                <div class="game-content">
+                    <div class="game-main-info">
+                        <h3>游戏介绍</h3>
+                        <div class="game-description">
+                            <p>${game.description}</p>
+                        </div>
+                        
+                        <div class="game-screenshots">
+                            <h3>游戏截图</h3>
+                            <div class="screenshots-grid">
+                                <!-- 这里可以添加更多游戏截图 -->
+                                <div class="screenshot-item">
+                                    <img src="${pageContext.request.contextPath}/${game.imageUrl}" alt="游戏截图1" />
+                                </div>
+                                <div class="screenshot-item">
+                                    <img src="${pageContext.request.contextPath}/${game.imageUrl}" alt="游戏截图2" />
+                                </div>
+                                <div class="screenshot-item">
+                                    <img src="${pageContext.request.contextPath}/${game.imageUrl}" alt="游戏截图3" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="game-sidebar">
+                        <div class="game-stats">
+                            <h3>游戏数据</h3>
+                            <div class="stat-item">
+                                <span class="stat-label">分类</span>
+                                <span class="stat-value">${game.category}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">总播放次数</span>
+                                <span class="stat-value">${game.playCount}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">评分</span>
+                                <span class="stat-value">${game.rating}/5.0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">平均时长</span>
+                                <span class="stat-value">约20分钟</span>
+                            </div>
+                        </div>
+                        
+                        <div class="game-system-requirements">
+                            <h3>系统要求</h3>
+                            <div class="req-title">最低配置</div>
+                            <div class="req-item">操作系统：Windows 7/8/10</div>
+                            <div class="req-item">浏览器：Chrome 60+、Firefox 55+、Edge 80+</div>
+                            <div class="req-item">内存：2GB RAM</div>
+                            <div class="req-item">网络：宽带连接</div>
+                            <div class="req-item">分辨率：1024x768及以上</div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="related-games">
-                    <h3>相关游戏</h3>
+                    <h3>相关游戏推荐</h3>
                     <div class="related-games-grid">
-                        <!-- 这里可以通过JSP动态加载相关游戏 -->
-                        <c:forEach var="relatedGame" items="${pageContext.request.getAttribute('relatedGames')}">
-                            <a href="${pageContext.request.contextPath}/game/detail/${relatedGame.id}" class="related-game-item">
-                                <img src="${pageContext.request.contextPath}/${relatedGame.imageUrl}" alt="${relatedGame.name}" />
-                                <div class="related-game-info">
-                                    ${relatedGame.name}
+                        <c:choose>
+                            <c:when test="${not empty relatedGames}">
+                                <c:forEach var="relatedGame" items="${relatedGames}">
+                                    <a href="${pageContext.request.contextPath}/game/detail/${relatedGame.id}" class="related-game-item">
+                                        <img src="${pageContext.request.contextPath}/${relatedGame.imageUrl}" alt="${relatedGame.name}" />
+                                        <div class="related-game-info">
+                                            <div>${relatedGame.name}</div>
+                                            <div style="font-size: 12px; color: #666; margin-top: 4px;">评分: ${relatedGame.rating}</div>
+                                        </div>
+                                    </a>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <div style="grid-column: 1 / -1; text-align: center; color: #999; padding: 20px;">
+                                    暂无相关游戏推荐
                                 </div>
-                            </a>
-                        </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </c:if>
