@@ -35,6 +35,14 @@ public interface GameService {
     List<Game> searchGames(String keyword);
     
     /**
+     * 搜索游戏（支持排序）
+     * @param keyword 搜索关键词
+     * @param sort 排序字段（playCount或rating）
+     * @return 游戏列表
+     */
+    List<Game> searchGames(String keyword, String sort);
+    
+    /**
      * 获取热门游戏
      * @param limit 获取的数量
      * @return 热门游戏列表

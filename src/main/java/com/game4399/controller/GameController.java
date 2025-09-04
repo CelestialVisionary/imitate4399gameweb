@@ -75,11 +75,18 @@ public class GameController extends HttpServlet {
     
     private void searchGames(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keyword = request.getParameter("keyword");
+        String sort = request.getParameter("sort");
         if (keyword != null && !keyword.trim().isEmpty()) {
-            List<Game> games = gameService.searchGames(keyword);
+            List<Game> games;
+            if (sort != null && !sort.trim().isEmpty()) {
+                games = gameService.searchGames(keyword, sort);
+            } else {
+                games = gameService.searchGames(keyword);
+            }
             request.setAttribute("games", games);
             request.setAttribute("title", "搜索结果：" + keyword);
             request.setAttribute("keyword", keyword);
+            request.setAttribute("sort", sort);
             request.getRequestDispatcher("/WEB-INF/views/gameList.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/game");

@@ -105,6 +105,16 @@ public class GameDAO {
      * @return 游戏列表
      */
     public List<Game> searchGames(String keyword) {
+        return searchGames(keyword, null);
+    }
+    
+    /**
+     * 搜索游戏（支持排序）
+     * @param keyword 搜索关键词
+     * @param sort 排序字段（playCount或rating）
+     * @return 游戏列表
+     */
+    public List<Game> searchGames(String keyword, String sort) {
         List<Game> games = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -112,8 +122,24 @@ public class GameDAO {
         
         try {
             conn = DBUtil.getConnection();
-            String sql = "SELECT * FROM games WHERE title LIKE ? OR description LIKE ? OR category LIKE ? ORDER BY id";
-            stmt = conn.prepareStatement(sql);
+            
+            // 基础SQL查询
+            StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM games WHERE title LIKE ? OR description LIKE ? OR category LIKE ?");
+            
+            // 根据排序字段调整ORDER BY子句
+            if (sort != null && !sort.isEmpty()) {
+                if ("playCount".equals(sort)) {
+                    sqlBuilder.append(" ORDER BY play_count DESC");
+                } else if ("rating".equals(sort)) {
+                    sqlBuilder.append(" ORDER BY rating DESC");
+                } else {
+                    sqlBuilder.append(" ORDER BY id");
+                }
+            } else {
+                sqlBuilder.append(" ORDER BY id");
+            }
+            
+            stmt = conn.prepareStatement(sqlBuilder.toString());
             String searchPattern = "%" + keyword + "%";
             stmt.setString(1, searchPattern);
             stmt.setString(2, searchPattern);

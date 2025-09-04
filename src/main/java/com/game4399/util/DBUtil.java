@@ -51,4 +51,35 @@ public class DBUtil {
             }
         }
     }
+    
+    /**
+     * 关闭所有数据库资源
+     * @param conn 数据库连接对象
+     * @param stmt Statement对象
+     * @param rs ResultSet对象
+     */
+    public static void closeConnection(Connection conn, java.sql.Statement stmt, java.sql.ResultSet rs) {
+        // 关闭ResultSet
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                System.err.println("关闭ResultSet失败: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        
+        // 关闭Statement
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.err.println("关闭Statement失败: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        
+        // 关闭Connection
+        closeConnection(conn);
+    }
 }

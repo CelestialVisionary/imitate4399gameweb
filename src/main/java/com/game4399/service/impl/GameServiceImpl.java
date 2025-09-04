@@ -37,6 +37,11 @@ public class GameServiceImpl implements GameService {
     }
     
     @Override
+    public List<Game> searchGames(String keyword, String sort) {
+        return gameDAO.searchGames(keyword, sort);
+    }
+    
+    @Override
     public List<Game> getHotGames(int limit) {
         return gameDAO.getHotGames(limit);
     }
