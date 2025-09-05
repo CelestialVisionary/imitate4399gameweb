@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -389,6 +390,102 @@
                             <div class="req-item">网络：宽带连接</div>
                             <div class="req-item">分辨率：1024x768及以上</div>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- 评论功能区域 -->
+                <div class="game-comments" style="margin-top: 30px;">
+                    <h3>玩家评论</h3>
+                    
+                    <!-- 游戏评分显示 -->
+                    <div class="game-rating-display" style="margin-bottom: 20px; padding: 15px; background-color: #f9f9f9; border-radius: 5px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-weight: bold;">综合评分：</span>
+                            <span style="font-size: 24px; font-weight: bold; color: #ff6600;">${game.rating}</span>
+                            <span>/ 5.0</span>
+                            <div class="star-rating" style="color: #ffd700; font-size: 18px;">
+                                <c:forEach begin="1" end="${game.rating}" varStatus="status">
+                                    ★
+                                </c:forEach>
+                                <c:forEach begin="${game.rating + 1}" end="5" varStatus="status">
+                                    ☆
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 评论表单 -->
+                    <c:if test="${not empty sessionScope.userId}">
+                        <div class="comment-form" style="margin-bottom: 30px; padding: 20px; background-color: #f9f9f9; border-radius: 5px;">
+                            <h4>发表评论</h4>
+                            <form action="${pageContext.request.contextPath}/comment/add" method="post">
+                                <input type="hidden" name="gameId" value="${game.id}">
+                                
+                                <div class="form-group" style="margin-bottom: 15px;">
+                                    <label for="rating" style="display: block; margin-bottom: 8px; color: #666;">评分：</label>
+                                    <div class="rating-input" style="display: flex; gap: 5px;">
+                                        <input type="radio" id="rating5" name="rating" value="5" checked>
+                                        <label for="rating5" style="cursor: pointer;">★</label>
+                                        <input type="radio" id="rating4" name="rating" value="4">
+                                        <label for="rating4" style="cursor: pointer;">★</label>
+                                        <input type="radio" id="rating3" name="rating" value="3">
+                                        <label for="rating3" style="cursor: pointer;">★</label>
+                                        <input type="radio" id="rating2" name="rating" value="2">
+                                        <label for="rating2" style="cursor: pointer;">★</label>
+                                        <input type="radio" id="rating1" name="rating" value="1">
+                                        <label for="rating1" style="cursor: pointer;">★</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" style="margin-bottom: 15px;">
+                                    <label for="content" style="display: block; margin-bottom: 8px; color: #666;">评论内容：</label>
+                                    <textarea id="content" name="content" rows="4" cols="50" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn-submit-comment" style="padding: 8px 20px; background-color: #ff6600; color: white; border: none; border-radius: 4px; cursor: pointer;">提交评论</button>
+                            </form>
+                        </div>
+                    </c:if>
+                    
+                    <!-- 未登录提示 -->
+                    <c:if test="${empty sessionScope.userId}">
+                        <div style="margin-bottom: 30px; padding: 15px; background-color: #e3f2fd; border-radius: 5px; text-align: center;">
+                            请先<a href="${pageContext.request.contextPath}/login.jsp" style="color: #ff6600; text-decoration: none;">登录</a>后发表评论
+                        </div>
+                    </c:if>
+                    
+                    <!-- 评论列表 -->
+                    <div class="comments-list">
+                        <c:choose>
+                            <c:when test="${not empty comments}">
+                                <c:forEach var="comment" items="${comments}">
+                                    <div class="comment-item" style="margin-bottom: 15px; padding: 15px; background-color: #f9f9f9; border-radius: 5px;">
+                                        <div class="comment-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                            <div class="comment-author" style="font-weight: bold; color: #333;">${comment.username}</div>
+                                            <div class="comment-time" style="font-size: 12px; color: #999;">
+                                                <fmt:formatDate value="${comment.commentTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="comment-rating" style="color: #ffd700; margin-bottom: 10px;">
+                                            <c:forEach begin="1" end="${comment.rating}" varStatus="status">
+                                                ★
+                                            </c:forEach>
+                                            <c:forEach begin="${comment.rating + 1}" end="5" varStatus="status">
+                                                ☆
+                                            </c:forEach>
+                                        </div>
+                                        
+                                        <div class="comment-content" style="color: #333; line-height: 1.6;">${comment.content}</div>
+                                    </div>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <div style="padding: 20px; text-align: center; color: #999;">
+                                    暂无评论，来发表第一条评论吧！
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
                 

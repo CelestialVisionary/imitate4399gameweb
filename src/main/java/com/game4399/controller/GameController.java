@@ -1,7 +1,11 @@
 package com.game4399.controller;
 
 import com.game4399.model.Game;
+import com.game4399.model.Comment;
 import com.game4399.service.GameService;
+import com.game4399.service.CommentService;
+import com.game4399.service.impl.GameServiceImpl;
+import com.game4399.service.impl.CommentServiceImpl;
 import com.game4399.util.ServiceFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -104,6 +108,11 @@ public class GameController extends HttpServlet {
                 // 获取相关游戏
                 List<Game> relatedGames = gameService.getRelatedGames(game.getId(), game.getCategory(), 4);
                 request.setAttribute("relatedGames", relatedGames);
+                
+                // 获取游戏评论
+                CommentService commentService = ServiceFactory.getCommentService();
+                List<Comment> comments = commentService.getCommentsByGameId(id);
+                request.setAttribute("comments", comments);
                 
                 request.getRequestDispatcher("/WEB-INF/views/gameDetail.jsp").forward(request, response);
             } else {
