@@ -64,4 +64,15 @@ public class GameServiceImpl implements GameService {
     public List<Game> getRelatedGames(int gameId, String category, int limit) {
         return gameDAO.getRelatedGames(gameId, category, limit);
     }
+    
+    /**
+     * 为用户推荐游戏
+     * @param userId 用户ID
+     * @param limit 获取的数量
+     * @return 推荐游戏列表
+     */
+    @Override
+    public List<Game> recommendGamesForUser(int userId, int limit) {
+        return gameDAO.recommendGamesForUser(userId, limit);
+    }
 }

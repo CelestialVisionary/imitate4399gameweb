@@ -48,6 +48,9 @@ public class GameController extends HttpServlet {
         } else if (pathInfo.startsWith("/detail/")) {
             // 显示游戏详情
             showGameDetail(request, response);
+        } else if (pathInfo.equals("/recommend")) {
+            // 显示个性化推荐游戏
+            recommendGames(request, response);
         }
     }
     
@@ -154,5 +157,19 @@ public class GameController extends HttpServlet {
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             response.sendRedirect(request.getContextPath() + "/game");
         }
+    }
+    
+    /**
+     * 显示个性化推荐游戏
+     */
+    private void recommendGames(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 假设这里从会话中获取用户ID（实际应用中需要根据认证机制获取）
+        // 这里使用默认用户ID 1作为示例
+        int userId = 1;
+        
+        List<Game> recommendedGames = gameService.recommendGamesForUser(userId, 8); // 获取8个推荐游戏
+        request.setAttribute("games", recommendedGames);
+        request.setAttribute("title", "为你推荐");
+        request.getRequestDispatcher("/WEB-INF/views/gameList.jsp").forward(request, response);
     }
 }

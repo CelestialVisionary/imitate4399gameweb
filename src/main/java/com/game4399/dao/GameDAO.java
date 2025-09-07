@@ -244,6 +244,101 @@ public class GameDAO {
     }
     
     /**
+     * 为用户推荐游戏
+     * @param userId 用户ID
+     * @param limit 获取的数量
+     * @return 推荐游戏列表
+     */
+    public List<Game> recommendGamesForUser(int userId, int limit) {
+        List<Game> recommendedGames = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = DBUtil.getConnection();
+            // 1. 获取用户评论过的游戏分类及其权重
+            String sql = "SELECT g.category, COUNT(*) as category_count " +
+                         "FROM comments c JOIN games g ON c.game_id = g.id " +
+                         "WHERE c.user_id = ? " +
+                         "GROUP BY g.category " +
+                         "ORDER BY category_count DESC LIMIT 2";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            rs = stmt.executeQuery();
+            
+            List<String> preferredCategories = new ArrayList<>();
+            while (rs.next()) {
+                preferredCategories.add(rs.getString("category"));
+            }
+            
+            // 2. 如果用户有评论历史，基于偏好分类推荐热门游戏
+            if (!preferredCategories.isEmpty()) {
+                rs.close();
+                stmt.close();
+                
+                StringBuilder categoryInClause = new StringBuilder();
+                for (int i = 0; i < preferredCategories.size(); i++) {
+                    if (i > 0) categoryInClause.append(",");
+                    categoryInClause.append("?");
+                }
+                
+                sql = "SELECT * FROM games WHERE category IN (" + categoryInClause + ") " +
+                      "AND id NOT IN (SELECT game_id FROM comments WHERE user_id = ?) " +
+                      "ORDER BY play_count DESC LIMIT ?";
+                stmt = conn.prepareStatement(sql);
+                
+                // 设置分类参数
+                for (int i = 0; i < preferredCategories.size(); i++) {
+                    stmt.setString(i + 1, preferredCategories.get(i));
+                }
+                
+                // 设置用户ID和限制数量参数
+                stmt.setInt(preferredCategories.size() + 1, userId);
+                stmt.setInt(preferredCategories.size() + 2, limit);
+                
+                rs = stmt.executeQuery();
+                
+                while (rs.next()) {
+                    recommendedGames.add(mapResultSetToGame(rs));
+                }
+            }
+            
+            // 3. 如果没有足够的推荐结果，使用热门游戏作为补充
+            if (recommendedGames.size() < limit) {
+                rs.close();
+                stmt.close();
+                
+                int remainingSlots = limit - recommendedGames.size();
+                sql = "SELECT * FROM games ORDER BY play_count DESC LIMIT ?";
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, remainingSlots);
+                rs = stmt.executeQuery();
+                
+                while (rs.next()) {
+                    Game game = mapResultSetToGame(rs);
+                    boolean alreadyRecommended = false;
+                    for (Game recommended : recommendedGames) {
+                        if (recommended.getId() == game.getId()) {
+                            alreadyRecommended = true;
+                            break;
+                        }
+                    }
+                    if (!alreadyRecommended) {
+                        recommendedGames.add(game);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(conn, stmt, rs);
+        }
+        
+        return recommendedGames;
+    }
+    
+    /**
      * 将结果集映射为游戏对象
      * @param rs 结果集
      * @return 游戏对象

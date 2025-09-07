@@ -56,11 +56,19 @@ public interface GameService {
     void updatePlayCount(int gameId);
     
     /**
-     * 获取相关游戏
-     * @param gameId 当前游戏ID
-     * @param category 当前游戏分类
-     * @param limit 获取的数量
-     * @return 相关游戏列表
-     */
-    List<Game> getRelatedGames(int gameId, String category, int limit);
+ * 获取相关游戏
+ * @param gameId 当前游戏ID
+ * @param category 当前游戏分类
+ * @param limit 获取的数量
+ * @return 相关游戏列表
+ */
+List<Game> getRelatedGames(int gameId, String category, int limit);
+
+/**
+ * 为用户推荐游戏
+ * @param userId 用户ID
+ * @param limit 获取的数量
+ * @return 推荐游戏列表
+ */
+List<Game> recommendGamesForUser(int userId, int limit);
 }
