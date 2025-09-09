@@ -45,4 +45,9 @@ public class CommentServiceImpl implements CommentService {
     public double calculateAverageRating(int gameId) {
         return commentDAO.calculateAverageRating(gameId);
     }
+
+    @Override
+    public Comment getCommentById(int commentId) {
+        throw new UnsupportedOperationException("Unimplemented method 'getCommentById'");
+    }
 }

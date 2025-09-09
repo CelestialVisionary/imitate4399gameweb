@@ -3,7 +3,6 @@ package com.game4399.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public class DBUtil {
     // 数据库连接配置

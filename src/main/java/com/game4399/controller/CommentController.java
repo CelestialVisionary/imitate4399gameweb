@@ -2,7 +2,6 @@ package com.game4399.controller;
 
 import com.game4399.model.Comment;
 import com.game4399.service.CommentService;
-import com.game4399.service.impl.CommentServiceImpl;
 import com.game4399.util.ServiceFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

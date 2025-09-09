@@ -1,45 +1,5 @@
 # imitate4399gameweb
 
-## 多项目GitCode上传指南
-
-### 1. 全局配置（只需一次）
-```bash
-git config --global user.name "CelestialVisionary"
-git config --global user.email "zilvdebao@outlook.com"
-```
-
-### 2. 为新项目添加GitCode远程仓库
-```bash
-# 进入项目目录
-cd /path/to/other_project
-
-# 初始化Git仓库（如未初始化）
-git init
-
-# 添加GitCode远程仓库
-git remote add origin https://gitcode.com/CelestialVisionary/[项目名称].git
-
-# 推送代码
-git add .
-git commit -m "Initial commit"
-git push -u origin main
-```
-
-### 3. 认证注意事项
-GitCode已移除密码认证，请使用个人访问令牌(PAT)：
-1. 在GitCode个人设置中创建PAT（需勾选仓库读写权限）
-2. 推送时用户名输入GitCode账号，密码输入PAT
-
-### 4. 多项目管理建议
-- 为每个项目创建独立的GitCode仓库
-- 使用不同的远程仓库名称区分项目：`git remote add gitcode-[项目名] [仓库URL]`
-- 定期执行`git remote -v`检查远程配置
-
-## 项目结构
-
-
-![GitHub Stars](https://img.shields.io/github/stars/CelestialVisionary/imitate4399gameweb.svg?style=social)
-![GitHub Forks](https://img.shields.io/github/forks/CelestialVisionary/imitate4399gameweb.svg?style=social)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 
@@ -138,12 +98,6 @@ GitCode已移除密码认证，请使用个人访问令牌(PAT)：
 - Tomcat 7（可选，Maven插件已集成）
 - MySQL 5.5 或更高版本
 
-### 克隆项目
-
-```bash
-git clone https://github.com/CelestialVisionary/imitate4399gameweb.git
-cd imitate4399gameweb
-```
 
 ### 数据库初始化
 
@@ -213,16 +167,7 @@ mvn tomcat7:run
 4. 推送到分支：`git push origin feature/amazing-feature`
 5. 创建Pull Request
 
-## 社区支持
-- 问题反馈：[GitHub Issues](https://github.com/CelestialVisionary/imitate4399gameweb/issues)
-- 讨论交流：[Discussions](https://github.com/CelestialVisionary/imitate4399gameweb/discussions)
-- 开发文档：[Wiki](https://github.com/CelestialVisionary/imitate4399gameweb/wiki)
 
-1. Fork 本仓库
-2. 创建特性分支 (git checkout -b feature/AmazingFeature)
-3. 提交更改 (git commit -m 'Add some AmazingFeature')
-4. 推送到分支 (git push origin feature/AmazingFeature)
-5. 开启Pull Request
 
 ## 常见问题解答 (FAQ)
 
