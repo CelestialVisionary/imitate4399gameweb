@@ -24,7 +24,7 @@ public class GameDAO {
         
         try {
             conn = DBUtil.getConnection();
-            String sql = "SELECT * FROM games WHERE id = ?";
+            String sql = "SELECT g.*, c.name as category_name FROM games g JOIN categories c ON g.category_id = c.id WHERE g.id = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -53,7 +53,7 @@ public class GameDAO {
         
         try {
             conn = DBUtil.getConnection();
-            String sql = "SELECT * FROM games ORDER BY id";
+            String sql = "SELECT g.*, c.name as category_name FROM games g JOIN categories c ON g.category_id = c.id ORDER BY g.id";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(sql);
             
@@ -82,7 +82,7 @@ public class GameDAO {
         
         try {
             conn = DBUtil.getConnection();
-            String sql = "SELECT * FROM games WHERE category = ? ORDER BY id";
+            String sql = "SELECT g.*, c.name as category_name FROM games g JOIN categories c ON g.category_id = c.id WHERE c.name = ? ORDER BY g.id";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, category);
             rs = stmt.executeQuery();
@@ -124,7 +124,7 @@ public class GameDAO {
             conn = DBUtil.getConnection();
             
             // 基础SQL查询
-            StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM games WHERE title LIKE ? OR description LIKE ? OR category LIKE ?");
+            StringBuilder sqlBuilder = new StringBuilder("SELECT g.*, c.name as category_name FROM games g JOIN categories c ON g.category_id = c.id WHERE g.title LIKE ? OR g.description LIKE ? OR c.name LIKE ?");
             
             // 根据排序字段调整ORDER BY子句
             if (sort != null && !sort.isEmpty()) {
@@ -347,12 +347,13 @@ public class GameDAO {
     private Game mapResultSetToGame(ResultSet rs) throws SQLException {
         Game game = new Game();
         game.setId(rs.getInt("id"));
-        game.setName(rs.getString("title")); // 注意：数据库字段是title，模型类属性是name
-        game.setCategory(rs.getString("category"));
+        game.setTitle(rs.getString("title"));
+        game.setCategoryId(rs.getInt("category_id"));
+        game.setCategoryName(rs.getString("category_name"));
         game.setDescription(rs.getString("description"));
         game.setImageUrl(rs.getString("image_url"));
-        game.setPlayUrl(rs.getString("play_url"));
-        game.setPlayCount(rs.getInt("play_count"));
+        game.setDeveloper(rs.getString("developer"));
+        game.setReleaseDate(rs.getString("release_date"));
         game.setRating(rs.getDouble("rating"));
         return game;
     }

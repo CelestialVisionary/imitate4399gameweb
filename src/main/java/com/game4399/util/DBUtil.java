@@ -3,20 +3,38 @@ package com.game4399.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.io.InputStream;
+import java.io.IOException;
 
 public class DBUtil {
     // 数据库连接配置
-    private static final String URL = "jdbc:mysql://localhost:3306/game4399db?useSSL=false&serverTimezone=UTC";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "password";
+    private static String URL;
+    private static String USERNAME;
+    private static String PASSWORD;
+    private static final String PROPERTIES_FILE = "db.properties";
 
-    // 静态初始化块，加载数据库驱动
+    // 静态初始化块，从配置文件加载数据库连接信息并加载驱动
     static {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.err.println("数据库驱动加载失败: " + e.getMessage());
+        Properties props = new Properties();
+        try (InputStream in = DBUtil.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE)) {
+            if (in == null) {
+                throw new RuntimeException("数据库配置文件" + PROPERTIES_FILE + "未找到");
+            }
+            props.load(in);
+            URL = props.getProperty("jdbc.url");
+            USERNAME = props.getProperty("jdbc.username");
+            PASSWORD = props.getProperty("jdbc.password", "");
+            // 调试输出加载的配置信息（不含密码）
+            System.out.println("Loaded DB config - URL: " + URL + ", User: " + USERNAME);
+            String driver = props.getProperty("jdbc.driver");
+            Class.forName(driver);
+        } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException("数据库配置文件加载失败", e);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException("数据库驱动类未找到", e);
         }
     }
 
@@ -27,7 +45,8 @@ public class DBUtil {
      */
     public static Connection getConnection() throws SQLException {
         try {
-            return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            // 密码为空时传递null而非空字符串，避免MySQL无密码连接被拒绝
+return DriverManager.getConnection(URL, USERNAME, PASSWORD.isEmpty() ? null : PASSWORD);
         } catch (SQLException e) {
             System.err.println("数据库连接失败: " + e.getMessage());
             throw e;
@@ -46,6 +65,18 @@ public class DBUtil {
                 }
             } catch (SQLException e) {
                 System.err.println("关闭数据库连接失败: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void closeConnection(Connection conn, java.sql.Statement stmt) {
+        closeConnection(conn);
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.err.println("关闭Statement失败: " + e.getMessage());
                 e.printStackTrace();
             }
         }

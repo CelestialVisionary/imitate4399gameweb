@@ -537,33 +537,69 @@
         </div>
     </footer>
     <script>
-        // 轮播图交互
+        // 轮播图功能实现
         document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.carousel-slider');
             const slides = document.querySelectorAll('.carousel-slide');
             const indicators = document.querySelectorAll('.indicator');
             let currentIndex = 0;
-
-            function showSlide(index) {
-                slides.forEach((slide, i) => {
-                    slide.classList.toggle('active', i === index);
+            const slideCount = slides.length;
+            let slideInterval;
+    
+            // 设置轮播图宽度
+            function initSlider() {
+                slides.forEach(slide => {
+                    slide.style.minWidth = `${100 / slideCount}%`;
                 });
-                indicators.forEach((indicator, i) => {
-                    indicator.classList.toggle('active', i === index);
+                startSlideInterval();
+            }
+    
+            // 切换到指定幻灯片
+            function goToSlide(index) {
+                if (index < 0 || index >= slideCount) return;
+                currentIndex = index;
+                slider.style.transform = `translateX(-${currentIndex * (100 / slideCount)}%)`;
+                updateIndicators();
+            }
+    
+            // 更新指示器状态
+            function updateIndicators() {
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentIndex);
                 });
             }
-
+    
+            // 下一张幻灯片
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % slideCount;
+                goToSlide(currentIndex);
+            }
+    
+            // 开始自动轮播
+            function startSlideInterval() {
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+    
+            // 停止自动轮播
+            function stopSlideInterval() {
+                clearInterval(slideInterval);
+            }
+    
+            // 绑定指示器点击事件
             indicators.forEach((indicator, index) => {
                 indicator.addEventListener('click', () => {
-                    currentIndex = index;
-                    showSlide(currentIndex);
+                    goToSlide(index);
+                    stopSlideInterval();
+                    startSlideInterval();
                 });
             });
-
-            // 自动轮播
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % slides.length;
-                showSlide(currentIndex);
-            }, 5000);
+    
+            // 鼠标悬停时停止轮播
+            slider.addEventListener('mouseenter', stopSlideInterval);
+            slider.addEventListener('mouseleave', startSlideInterval);
+    
+            // 初始化轮播
+            initSlider();
         });
     </script>
 </body>

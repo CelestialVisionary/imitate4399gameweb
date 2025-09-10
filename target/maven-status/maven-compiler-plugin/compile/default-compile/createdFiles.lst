@@ -1,5 +1,0 @@
-com\game4399\model\Game.class
-com\game4399\util\ServiceFactory.class
-com\game4399\controller\GameController.class
-com\game4399\service\GameService.class
-com\game4399\service\impl\GameServiceImpl.class

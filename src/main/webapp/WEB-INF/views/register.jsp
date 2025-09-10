@@ -22,6 +22,35 @@
         .field-error { color: #c62828; font-size: 12px; margin-top: 5px; display: block; }
         .input-error { border-color: #c62828 !important; }
     </style>
+    <script>
+        function validateForm() {
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const usernameRegex = /^[a-zA-Z0-9_]{4,16}$/;
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
+    
+            if (!usernameRegex.test(username)) {
+                alert('用户名必须为4-16位字母、数字或下划线');
+                return false;
+            }
+            if (!emailRegex.test(email)) {
+                alert('请输入有效的邮箱地址');
+                return false;
+            }
+            if (!passwordRegex.test(password)) {
+                alert('密码至少6位，需包含字母和数字');
+                return false;
+            }
+            if (password !== confirmPassword) {
+                alert('两次密码输入不一致');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -38,7 +67,7 @@
                 </div>
             <% } %>
             
-            <form action="register" method="post">
+            <form onsubmit="return validateForm()" action="register" method="post">
                 <div class="form-group">
                     <label for="username">用户名</label>
                     <input type="text" id="username" name="username" required 

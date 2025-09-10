@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL UNIQUE,
     register_time DATETIME NOT NULL,
     last_login_time DATETIME,
-    status TINYINT DEFAULT 1 -- 1: 正常, 0: 禁用
+    status TINYINT DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 创建索引以提高查询性能
@@ -54,13 +54,13 @@ INSERT INTO users (username, password, email, register_time) VALUES
 
 -- 插入游戏数据
 INSERT INTO games (title, description, category, image_url, play_url, play_count, rating, release_date, is_hot, is_new) VALUES
-('我的世界', '经典沙盒建造游戏', '沙盒', 'images/mc.svg', 'play/mc.jsp', 1250000, 4.8, '2011-11-18', 1, 0),
-('迷你世界', '3D沙盒创意游戏', '沙盒', 'images/mnsj.svg', 'play/mnsj.jsp', 980000, 4.6, '2015-08-01', 1, 0),
-('和平精英', '战术竞技射击游戏', '射击', 'images/hpjy.svg', 'play/hpjy.jsp', 2500000, 4.7, '2019-05-08', 1, 0),
-('王者荣耀', '多人在线战术竞技游戏', 'MOBA', 'images/wzry.svg', 'play/wzry.jsp', 3800000, 4.9, '2015-11-26', 1, 0),
-('拼图游戏', '休闲益智拼图挑战', '益智', 'images/puzzle.svg', 'play/puzzle.jsp', 320000, 4.5, '2023-01-15', 0, 1),
-('赛车游戏', '极速赛车体验', '竞速', 'images/racing.svg', 'play/racing.jsp', 450000, 4.4, '2022-10-20', 0, 1),
-('射击游戏', '经典射击闯关游戏', '射击', 'images/shooter.svg', 'play/shooter.jsp', 680000, 4.3, '2022-05-10', 0, 0);
+('Minecraft', 'Classic sandbox construction game', 'Sandbox', 'images/mc.svg', 'play/mc.jsp', 1250000, 4.8, '2011-11-18', 1, 0),
+('Mini World', '3D sandbox creative game', 'Sandbox', 'images/mnsj.svg', 'play/mnsj.jsp', 980000, 4.6, '2015-08-01', 1, 0),
+('Peacekeeper Elite', 'Tactical competitive shooting game', 'Shooting', 'images/hpjy.svg', 'play/hpjy.jsp', 2500000, 4.7, '2019-05-08', 1, 0),
+('Honor of Kings', 'Multiplayer online battle arena', 'MOBA', 'images/wzry.svg', 'play/wzry.jsp', 3800000, 4.9, '2015-11-26', 1, 0),
+('Jigsaw Puzzle', 'Casual puzzle challenge', 'Puzzle', 'images/puzzle.svg', 'play/puzzle.jsp', 320000, 4.5, '2023-01-15', 0, 1),
+('Racing Game', 'Speed racing experience', 'Racing', 'images/racing.svg', 'play/racing.jsp', 450000, 4.4, '2022-10-20', 0, 1),
+('Shooting Game', 'Classic shooting game', 'Shooting', 'images/shooter.svg', 'play/shooter.jsp', 680000, 4.3, '2022-05-10', 0, 0);
 
 -- 授予权限
 -- 注意：在实际生产环境中，应使用更严格的权限设置

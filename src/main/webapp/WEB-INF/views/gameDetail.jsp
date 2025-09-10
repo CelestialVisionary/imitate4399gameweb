@@ -109,6 +109,27 @@
         .btn-play:hover {
             background-color: #e55d00;
         }
+        .btn-favorite {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #f0f0f0;
+            color: #666;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-favorite:hover {
+            background-color: #e0e0e0;
+        }
+        .btn-favorite.active {
+            background-color: #e91e63;
+            color: white;
+        }
         
         /* 游戏详情区域样式 */
         .game-content {
@@ -332,6 +353,7 @@
                         </div>
                         <form action="${pageContext.request.contextPath}/game/play/${game.id}" method="post">
                             <button type="submit" class="btn-play">开始游戏</button>
+                            <button type="button" id="btn-favorite" class="btn-favorite">收藏</button>
                         </form>
                     </div>
                 </div>
@@ -529,3 +551,98 @@
     </footer>
 </body>
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const favoriteBtn = document.getElementById('favoriteBtn');
+        const gameId = ${game.id};
+
+        // 检查收藏状态
+        function checkFavoriteStatus() {
+            fetch(`/user/favorite/check?gameId=${gameId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.status === 401) {
+                    // 用户未登录，不改变按钮状态
+                    return { isFavorite: false };
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.isFavorite) {
+                    favoriteBtn.classList.add('favorited');
+                    favoriteBtn.innerHTML = '★ 已收藏';
+                }
+            })
+            .catch(error => console.error('检查收藏状态失败:', error));
+        }
+
+        // 切换收藏状态
+        favoriteBtn.addEventListener('click', function() {
+            const isFavorited = favoriteBtn.classList.contains('favorited');
+            const action = isFavorited ? 'remove' : 'add';
+
+            fetch(`/user/favorite/${action}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `gameId=${gameId}`
+            })
+            .then(response => {
+                if (response.redirected) {
+                    // 未登录，重定向到登录页
+                    window.location.href = response.url;
+                    return;
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    if (isFavorited) {
+                        favoriteBtn.classList.remove('favorited');
+                        favoriteBtn.innerHTML = '☆ 收藏';
+                        showNotification('已取消收藏');
+                    } else {
+                        favoriteBtn.classList.add('favorited');
+                        favoriteBtn.innerHTML = '★ 已收藏';
+                        showNotification('收藏成功');
+                    }
+                } else {
+                    showNotification('操作失败，请重试');
+                }
+            })
+            .catch(error => console.error('收藏操作失败:', error));
+        });
+
+        // 显示通知
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.padding = '10px 20px';
+            notification.style.backgroundColor = '#333';
+            notification.style.color = 'white';
+            notification.style.borderRadius = '4px';
+            notification.style.zIndex = '1000';
+            notification.style.transition = 'opacity 0.3s';
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // 页面加载时检查收藏状态
+        checkFavoriteStatus();
+    });
+</script>

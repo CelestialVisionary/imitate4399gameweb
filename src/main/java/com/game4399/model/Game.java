@@ -37,52 +37,60 @@ public class Game {
         this.id = id;
     }
     
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
-    
-    public void setName(String name) {
-        this.name = name;
+
+    public void setTitle(String title) {
+        this.title = title;
     }
-    
-    public String getCategory() {
-        return category;
+
+    public int getCategoryId() {
+        return categoryId;
     }
-    
-    public void setCategory(String category) {
-        this.category = category;
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
-    
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     public String getDescription() {
         return description;
     }
-    
+
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public String getImageUrl() {
         return imageUrl;
     }
-    
+
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    
-    public String getPlayUrl() {
-        return playUrl;
+
+    public String getDeveloper() {
+        return developer;
     }
-    
-    public void setPlayUrl(String playUrl) {
-        this.playUrl = playUrl;
+
+    public void setDeveloper(String developer) {
+        this.developer = developer;
     }
-    
-    public int getPlayCount() {
-        return playCount;
+
+    public String getReleaseDate() {
+        return releaseDate;
     }
-    
-    public void setPlayCount(int playCount) {
-        this.playCount = playCount;
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
     
     public double getRating() {
