@@ -24,6 +24,11 @@ public class FavoritesDAO {
         PreparedStatement stmt = null;
         
         try {
+            // 先检查是否已收藏，避免唯一键冲突
+            if (isFavorite(userId, gameId)) {
+                return false; // 已收藏，添加失败
+            }
+            
             conn = DBUtil.getConnection();
             String sql = "INSERT INTO user_favorites (user_id, game_id) VALUES (?, ?)";
             stmt = conn.prepareStatement(sql);

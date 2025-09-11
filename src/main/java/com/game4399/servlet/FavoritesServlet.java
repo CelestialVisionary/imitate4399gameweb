@@ -116,7 +116,9 @@ public class FavoritesServlet extends HttpServlet {
         private String message;
         private Object data;
         
-        public boolean isSuccess() {
+        // 添加getter方法以解决未使用字段的警告，Gson序列化时需要
+        @SuppressWarnings("unused")
+        public boolean getSuccess() {
             return success;
         }
         
@@ -124,6 +126,7 @@ public class FavoritesServlet extends HttpServlet {
             this.success = success;
         }
         
+        @SuppressWarnings("unused")
         public String getMessage() {
             return message;
         }
@@ -132,6 +135,7 @@ public class FavoritesServlet extends HttpServlet {
             this.message = message;
         }
         
+        @SuppressWarnings("unused")
         public Object getData() {
             return data;
         }

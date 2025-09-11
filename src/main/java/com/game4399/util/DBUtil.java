@@ -46,7 +46,7 @@ public class DBUtil {
     public static Connection getConnection() throws SQLException {
         try {
             // 密码为空时传递null而非空字符串，避免MySQL无密码连接被拒绝
-return DriverManager.getConnection(URL, USERNAME, PASSWORD.isEmpty() ? null : PASSWORD);
+            return DriverManager.getConnection(URL, USERNAME, PASSWORD.isEmpty() ? null : PASSWORD);
         } catch (SQLException e) {
             System.err.println("数据库连接失败: " + e.getMessage());
             throw e;

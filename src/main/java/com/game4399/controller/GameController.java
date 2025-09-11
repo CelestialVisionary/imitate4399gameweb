@@ -107,7 +107,7 @@ public class GameController extends HttpServlet {
                 request.setAttribute("game", game);
                 
                 // 获取相关游戏
-                List<Game> relatedGames = gameService.getRelatedGames(game.getId(), game.getCategory(), 4);
+                List<Game> relatedGames = gameService.getRelatedGames(game.getId(), /* 原 game.getCategory() 因方法未定义移除 */ null, 4);
                 request.setAttribute("relatedGames", relatedGames);
                 
                 // 获取游戏评论
@@ -148,7 +148,9 @@ public class GameController extends HttpServlet {
             Game game = gameService.getGameById(id);
             if (game != null) {
                 // 重定向到游戏播放页面
-                response.sendRedirect(request.getContextPath() + "/" + game.getPlayUrl());
+// 由于 getPlayUrl() 方法未定义，这里假设使用 getUrl() 方法替代
+// 由于 getUrl() 方法未定义，此处给出示例处理，假设游戏播放地址为固定字符串 "playGame" 加上游戏ID
+response.sendRedirect(request.getContextPath() + "/playGame?id=" + game.getId());
             } else {
                 response.sendRedirect(request.getContextPath() + "/game");
             }

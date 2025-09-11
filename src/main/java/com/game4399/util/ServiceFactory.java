@@ -42,6 +42,9 @@ public class ServiceFactory {
      * @return FavoritesService实例
      */
     public static FavoritesService getFavoritesService() {
-        return new FavoritesServiceImpl();
+        if (favoritesService == null) {
+            favoritesService = new FavoritesServiceImpl();
+        }
+        return favoritesService;
     }
 }
