@@ -50,6 +50,7 @@ public class GameServiceImpl implements GameService {
      * 更新游戏播放次数
      * @param gameId 游戏ID
      */
+    @Override
     public void updatePlayCount(int gameId) {
         gameDAO.updatePlayCount(gameId);
     }
@@ -61,6 +62,7 @@ public class GameServiceImpl implements GameService {
      * @param limit 获取的数量
      * @return 相关游戏列表
      */
+    @Override
     public List<Game> getRelatedGames(int gameId, String category, int limit) {
         return gameDAO.getRelatedGames(gameId, category, limit);
     }

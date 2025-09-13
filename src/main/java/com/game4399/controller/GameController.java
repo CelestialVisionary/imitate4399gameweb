@@ -107,7 +107,7 @@ public class GameController extends HttpServlet {
                 request.setAttribute("game", game);
                 
                 // 获取相关游戏
-                List<Game> relatedGames = gameService.getRelatedGames(game.getId(), /* 原 game.getCategory() 因方法未定义移除 */ null, 4);
+                List<Game> relatedGames = gameService.getRelatedGames(game.getId(), game.getCategoryName(), 4);
                 request.setAttribute("relatedGames", relatedGames);
                 
                 // 获取游戏评论

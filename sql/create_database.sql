@@ -21,20 +21,31 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE INDEX idx_username ON users(username);
 CREATE INDEX idx_email ON users(email);
 
+-- 创建游戏分类表
+CREATE TABLE IF NOT EXISTS categories (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- 创建游戏表
 CREATE TABLE IF NOT EXISTS games (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL,
     description TEXT,
-    category VARCHAR(50) NOT NULL,
+    category_id INT NOT NULL,
     image_url VARCHAR(255) NOT NULL,
     play_url VARCHAR(255) NOT NULL,
     play_count INT DEFAULT 0,
     rating FLOAT DEFAULT 0,
     release_date DATE,
     is_hot TINYINT DEFAULT 0,
-    is_new TINYINT DEFAULT 0
+    is_new TINYINT DEFAULT 0,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 创建索引以提高查询性能
+CREATE INDEX idx_games_category ON games(category_id);
 
 -- 创建游戏评论表
 CREATE TABLE IF NOT EXISTS comments (
@@ -52,15 +63,23 @@ CREATE TABLE IF NOT EXISTS comments (
 INSERT INTO users (username, password, email, register_time) VALUES 
 ('testuser', 'test123', 'test@example.com', NOW());
 
+-- 插入游戏分类数据
+INSERT INTO categories (name, description) VALUES
+('Sandbox', '沙盒建造类游戏'),
+('Shooting', '射击类游戏'),
+('MOBA', '多人在线战术竞技游戏'),
+('Puzzle', '益智解谜类游戏'),
+('Racing', '赛车类游戏');
+
 -- 插入游戏数据
-INSERT INTO games (title, description, category, image_url, play_url, play_count, rating, release_date, is_hot, is_new) VALUES
-('Minecraft', 'Classic sandbox construction game', 'Sandbox', 'images/mc.svg', 'play/mc.jsp', 1250000, 4.8, '2011-11-18', 1, 0),
-('Mini World', '3D sandbox creative game', 'Sandbox', 'images/mnsj.svg', 'play/mnsj.jsp', 980000, 4.6, '2015-08-01', 1, 0),
-('Peacekeeper Elite', 'Tactical competitive shooting game', 'Shooting', 'images/hpjy.svg', 'play/hpjy.jsp', 2500000, 4.7, '2019-05-08', 1, 0),
-('Honor of Kings', 'Multiplayer online battle arena', 'MOBA', 'images/wzry.svg', 'play/wzry.jsp', 3800000, 4.9, '2015-11-26', 1, 0),
-('Jigsaw Puzzle', 'Casual puzzle challenge', 'Puzzle', 'images/puzzle.svg', 'play/puzzle.jsp', 320000, 4.5, '2023-01-15', 0, 1),
-('Racing Game', 'Speed racing experience', 'Racing', 'images/racing.svg', 'play/racing.jsp', 450000, 4.4, '2022-10-20', 0, 1),
-('Shooting Game', 'Classic shooting game', 'Shooting', 'images/shooter.svg', 'play/shooter.jsp', 680000, 4.3, '2022-05-10', 0, 0);
+INSERT INTO games (title, description, category_id, image_url, play_url, play_count, rating, release_date, is_hot, is_new) VALUES
+('Minecraft', 'Classic sandbox construction game', 1, 'images/mc.svg', 'play/mc.jsp', 1250000, 4.8, '2011-11-18', 1, 0),
+('Mini World', '3D sandbox creative game', 1, 'images/mnsj.svg', 'play/mnsj.jsp', 980000, 4.6, '2015-08-01', 1, 0),
+('Peacekeeper Elite', 'Tactical competitive shooting game', 2, 'images/hpjy.svg', 'play/hpjy.jsp', 2500000, 4.7, '2019-05-08', 1, 0),
+('Honor of Kings', 'Multiplayer online battle arena', 3, 'images/wzry.svg', 'play/wzry.jsp', 3800000, 4.9, '2015-11-26', 1, 0),
+('Jigsaw Puzzle', 'Casual puzzle challenge', 4, 'images/puzzle.svg', 'play/puzzle.jsp', 320000, 4.5, '2023-01-15', 0, 1),
+('Racing Game', 'Speed racing experience', 5, 'images/racing.svg', 'play/racing.jsp', 450000, 4.4, '2022-10-20', 0, 1),
+('Shooting Game', 'Classic shooting game', 2, 'images/shooter.svg', 'play/shooter.jsp', 680000, 4.3, '2022-05-10', 0, 0);
 
 -- 授予权限
 -- 注意：在实际生产环境中，应使用更严格的权限设置

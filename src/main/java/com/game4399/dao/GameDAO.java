@@ -171,7 +171,7 @@ public class GameDAO {
         
         try {
             conn = DBUtil.getConnection();
-            String sql = "SELECT * FROM games ORDER BY play_count DESC LIMIT ?";
+            String sql = "SELECT g.*, c.name as category_name FROM games g JOIN categories c ON g.category_id = c.id ORDER BY play_count DESC LIMIT ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, limit);
             rs = stmt.executeQuery();
@@ -224,7 +224,7 @@ public class GameDAO {
         
         try {
             conn = DBUtil.getConnection();
-            String sql = "SELECT * FROM games WHERE id != ? AND category = ? ORDER BY play_count DESC LIMIT ?";
+            String sql = "SELECT g.*, c.name as category_name FROM games g JOIN categories c ON g.category_id = c.id WHERE g.id != ? AND c.name = ? ORDER BY play_count DESC LIMIT ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, gameId);
             stmt.setString(2, category);
@@ -258,10 +258,11 @@ public class GameDAO {
         try {
             conn = DBUtil.getConnection();
             // 1. 获取用户评论过的游戏分类及其权重
-            String sql = "SELECT g.category, COUNT(*) as category_count " +
-                         "FROM comments c JOIN games g ON c.game_id = g.id " +
-                         "WHERE c.user_id = ? " +
-                         "GROUP BY g.category " +
+            String sql = "SELECT c.name as category_name, COUNT(*) as category_count " +
+                         "FROM comments cm JOIN games g ON cm.game_id = g.id " +
+                         "JOIN categories c ON g.category_id = c.id " +
+                         "WHERE cm.user_id = ? " +
+                         "GROUP BY c.name " +
                          "ORDER BY category_count DESC LIMIT 2";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
@@ -269,7 +270,7 @@ public class GameDAO {
             
             List<String> preferredCategories = new ArrayList<>();
             while (rs.next()) {
-                preferredCategories.add(rs.getString("category"));
+                preferredCategories.add(rs.getString("category_name"));
             }
             
             // 2. 如果用户有评论历史，基于偏好分类推荐热门游戏
@@ -283,8 +284,9 @@ public class GameDAO {
                     categoryInClause.append("?");
                 }
                 
-                sql = "SELECT * FROM games WHERE category IN (" + categoryInClause + ") " +
-                      "AND id NOT IN (SELECT game_id FROM comments WHERE user_id = ?) " +
+                sql = "SELECT g.*, c.name as category_name FROM games g JOIN categories c ON g.category_id = c.id " +
+                      "WHERE c.name IN (" + categoryInClause + ") " +
+                      "AND g.id NOT IN (SELECT game_id FROM comments WHERE user_id = ?) " +
                       "ORDER BY play_count DESC LIMIT ?";
                 stmt = conn.prepareStatement(sql);
                 
@@ -310,7 +312,7 @@ public class GameDAO {
                 stmt.close();
                 
                 int remainingSlots = limit - recommendedGames.size();
-                sql = "SELECT * FROM games ORDER BY play_count DESC LIMIT ?";
+                sql = "SELECT g.*, c.name as category_name FROM games g JOIN categories c ON g.category_id = c.id ORDER BY play_count DESC LIMIT ?";
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, remainingSlots);
                 rs = stmt.executeQuery();

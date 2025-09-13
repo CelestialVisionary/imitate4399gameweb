@@ -1,4 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.game4399.model.Category" %>
+<%@ page import="com.game4399.service.CategoryService" %>
+<%@ page import="com.game4399.util.ServiceFactory" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.game4399.model.Game" %>
+<%@ page import="com.game4399.service.GameService" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -364,100 +370,56 @@
         <div class="category-section">
             <h2>游戏分类</h2>
             <div class="category-list">
-                <a href="game/category?name=策略" class="category-item">策略</a>
-                <a href="game/category?name=MOBA" class="category-item">MOBA</a>
-                <a href="game/category?name=沙盒" class="category-item">沙盒</a>
-                <a href="game/category?name=射击" class="category-item">射击</a>
+                <% 
+                    // 获取所有分类
+                    CategoryService categoryService = ServiceFactory.getCategoryService();
+                    List<Category> categories = categoryService.getAllCategories();
+                    
+                    // 如果没有分类数据，使用默认分类
+                    if (categories == null || categories.isEmpty()) {
+                %>
+                <a href="game/category?name=休闲益智" class="category-item">休闲益智</a>
+                <a href="game/category?name=动作冒险" class="category-item">动作冒险</a>
+                <a href="game/category?name=射击游戏" class="category-item">射击游戏</a>
+                <a href="game/category?name=策略游戏" class="category-item">策略游戏</a>
                 <a href="game/category?name=角色扮演" class="category-item">角色扮演</a>
-                <a href="game/category?name=休闲" class="category-item">休闲</a>
-                <a href="game/category?name=益智" class="category-item">益智</a>
-                <a href="game/category?name=动作" class="category-item">动作</a>
-                <a href="game/category?name=冒险" class="category-item">冒险</a>
-                <a href="game/category?name=体育" class="category-item">体育</a>
+                <% 
+                    } else {
+                        for (Category category : categories) {
+                %>
+                <a href="game/category?name=<%= category.getName() %>" class="category-item"><%= category.getName() %></a>
+                <% 
+                        }
+                    }
+                %>
             </div>
         </div>
         
         <div class="hot-games">
             <h2>热门游戏</h2>
             <div class="game-grid">
-                <!-- 这里会通过JSP动态加载热门游戏 -->
-                <a href="game/detail/2" class="game-item">
-                    <img src="images/wzry.svg" alt="王者荣耀" />
+                <!-- 通过JSP动态加载热门游戏 -->
+                <% 
+                    GameService gameService = ServiceFactory.getGameService();
+                    List<Game> hotGames = gameService.getHotGames(4); // 获取前4个热门游戏
+                    if (hotGames != null && !hotGames.isEmpty()) {
+                        for (Game game : hotGames) {
+                %>
+                <a href="${pageContext.request.contextPath}/game/detail/<%= game.getId() %>" class="game-item">
+                    <img src="${pageContext.request.contextPath}/<%= game.getImageUrl() %>" alt="<%= game.getName() %>" />
                     <div class="game-info">
-                        <h3>王者荣耀</h3>
-                        <p>MOBA</p>
+                        <h3><%= game.getName() %></h3>
+                        <p><%= game.getCategoryName() %></p>
                         <div class="game-stats">
-                            <span>987万次播放</span>
-                            <span>评分：4.6</span>
+                            <span><%= game.getPlayCount() %>次播放</span>
+                            <span>评分：<%= game.getRating() %></span>
                         </div>
                     </div>
                 </a>
-                <a href="game/detail/4" class="game-item">
-                    <img src="images/mc.svg" alt="我的世界" />
-                    <div class="game-info">
-                        <h3>我的世界</h3>
-                        <p>沙盒</p>
-                        <div class="game-stats">
-                            <span>876万次播放</span>
-                            <span>评分：4.9</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="game/detail/5" class="game-item">
-                    <img src="images/hpjy.svg" alt="和平精英" />
-                    <div class="game-info">
-                        <h3>和平精英</h3>
-                        <p>射击</p>
-                        <div class="game-stats">
-                            <span>654万次播放</span>
-                            <span>评分：4.4</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="game/detail/3" class="game-item">
-                    <img src="images/mnsj.svg" alt="迷你世界" />
-                    <div class="game-info">
-                        <h3>迷你世界</h3>
-                        <p>沙盒</p>
-                        <div class="game-stats">
-                            <span>567万次播放</span>
-                            <span>评分：4.5</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="game/detail/6" class="game-item">
-                    <img src="images/puzzle.svg" alt="拼图游戏" />
-                    <div class="game-info">
-                        <h3>拼图游戏</h3>
-                        <p>益智</p>
-                        <div class="game-stats">
-                            <span>123万次播放</span>
-                            <span>评分：4.7</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="game/detail/7" class="game-item">
-                    <img src="images/racing.svg" alt="赛车游戏" />
-                    <div class="game-info">
-                        <h3>赛车游戏</h3>
-                        <p>体育</p>
-                        <div class="game-stats">
-                            <span>456万次播放</span>
-                            <span>评分：4.5</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="game/detail/8" class="game-item">
-                    <img src="images/shooter.svg" alt="射击游戏" />
-                    <div class="game-info">
-                        <h3>射击游戏</h3>
-                        <p>射击</p>
-                        <div class="game-stats">
-                            <span>789万次播放</span>
-                            <span>评分：4.8</span>
-                        </div>
-                    </div>
-                </a>
+                <% 
+                        }
+                    }
+                %>
             </div>
             <a href="game" class="btn-view-all">查看更多热门游戏</a>
         </div>
@@ -465,62 +427,43 @@
     
     <!-- 游戏排行榜 -->
     <div class="ranking-section">
-        <h2>游戏排行榜</h2>
-        <div class="ranking-list">
-            <div class="ranking-item">
-                <div class="ranking-number top1">1</div>
-                <div class="ranking-game-info">
-                    <img src="images/wzry.svg" alt="王者荣耀">
-                    <div class="ranking-game-details">
-                        <h3>王者荣耀</h3>
-                        <p>MOBA • 987万次播放</p>
+        <div class="container">
+            <h2>游戏排行榜</h2>
+            <div class="ranking-list">
+                <!-- 通过JSP动态加载游戏排行榜 -->
+                <% 
+                    List<Game> rankingGames = gameService.getHotGames(5); // 获取前5个热门游戏作为排行榜
+                    if (rankingGames != null && !rankingGames.isEmpty()) {
+                        for (int i = 0; i < rankingGames.size(); i++) {
+                            Game game = rankingGames.get(i);
+                            String rankingClass = "other";
+                            if (i == 0) rankingClass = "top1";
+                            else if (i == 1) rankingClass = "top2";
+                            else if (i == 2) rankingClass = "top3";
+                %>
+                <div class="ranking-item">
+                    <div class="ranking-number <%= rankingClass %>"><%= (i + 1) %></div>
+                    <div class="ranking-game-info">
+                        <img src="${pageContext.request.contextPath}/<%= game.getImageUrl() %>" alt="<%= game.getName() %>">
+                        <div class="ranking-game-details">
+                            <h3><%= game.getName() %></h3>
+                            <p><%= game.getCategoryName() %> • <%= game.getPlayCount() %>次播放</p>
+                        </div>
+                    </div>
+                    <div class="ranking-stats">
+                        <% 
+                            // 这里可以添加真实的排名变化逻辑，当前只是示例
+                            if (i == 0) out.print("↑ 2");
+                            else if (i == 1) out.print("↓ 1");
+                            else if (i == 3) out.print("→");
+                            else if (i == 4) out.print("↓ 2");
+                        %>
                     </div>
                 </div>
-                <div class="ranking-stats">↑ 2</div>
-            </div>
-            <div class="ranking-item">
-                <div class="ranking-number top2">2</div>
-                <div class="ranking-game-info">
-                    <img src="images/shooter.svg" alt="射击游戏">
-                    <div class="ranking-game-details">
-                        <h3>射击游戏</h3>
-                        <p>射击 • 789万次播放</p>
-                    </div>
-                </div>
-                <div class="ranking-stats">↓ 1</div>
-            </div>
-            <div class="ranking-item">
-                <div class="ranking-number top3">3</div>
-                <div class="ranking-game-info">
-                    <img src="images/mc.svg" alt="我的世界">
-                    <div class="ranking-game-details">
-                        <h3>我的世界</h3>
-                        <p>沙盒 • 876万次播放</p>
-                    </div>
-                </div>
-                <div class="ranking-stats">↑ 3</div>
-            </div>
-            <div class="ranking-item">
-                <div class="ranking-number other">4</div>
-                <div class="ranking-game-info">
-                    <img src="images/racing.svg" alt="赛车游戏">
-                    <div class="ranking-game-details">
-                        <h3>赛车游戏</h3>
-                        <p>体育 • 456万次播放</p>
-                    </div>
-                </div>
-                <div class="ranking-stats">→</div>
-            </div>
-            <div class="ranking-item">
-                <div class="ranking-number other">5</div>
-                <div class="ranking-game-info">
-                    <img src="images/hpjy.svg" alt="和平精英">
-                    <div class="ranking-game-details">
-                        <h3>和平精英</h3>
-                        <p>射击 • 654万次播放</p>
-                    </div>
-                </div>
-                <div class="ranking-stats">↓ 2</div>
+                <% 
+                        }
+                    }
+                %>
             </div>
         </div>
     </div>
