@@ -54,10 +54,10 @@ public class UserDAO {
                         user.setPassword(storedPassword); // 存储加密后的密码
                         user.setEmail(rs.getString("email"));
                         user.setRegisterTime(rs.getString("register_time"));
-                        
+                         
                         // 更新最后登录时间
                         updateLastLoginTime(rs.getInt("id"));
-                        
+                         
                         return user;
                     }
                 }
@@ -94,6 +94,125 @@ public class UserDAO {
             try (ResultSet rs = pstmt.executeQuery()) {
                 return rs.next();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    // 根据用户ID获取用户信息
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM users WHERE id = ?";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, userId);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setUsername(rs.getString("username"));
+                    user.setPassword(rs.getString("password"));
+                    user.setEmail(rs.getString("email"));
+                    user.setRegisterTime(rs.getString("register_time"));
+                    return user;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    // 更新用户信息
+    public boolean updateUser(User user) {
+        String sql = "UPDATE users SET email = ? WHERE id = ?";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, user.getEmail());
+            pstmt.setInt(2, user.getId());
+            
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    // 修改密码
+    public boolean changePassword(int userId, String oldPassword, String newPassword) {
+        // 先获取用户信息，验证旧密码
+        User user = getUserById(userId);
+        if (user == null) {
+            return false;
+        }
+        
+        // 验证旧密码是否正确
+        if (!PasswordUtil.verifyPassword(oldPassword, user.getPassword())) {
+            return false;
+        }
+        
+        // 更新密码
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, PasswordUtil.encryptPassword(newPassword));
+            pstmt.setInt(2, userId);
+            
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    // 根据邮箱查询用户
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM users WHERE email = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setUsername(rs.getString("username"));
+                    user.setPassword(rs.getString("password"));
+                    user.setEmail(rs.getString("email"));
+                    user.setRegisterTime(rs.getString("register_time"));
+                    
+                    return user;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+    
+    // 更新用户密码
+    public boolean updatePassword(int userId, String newPassword) {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // 加密新密码
+            String encryptedPassword = PasswordUtil.encryptPassword(newPassword);
+            pstmt.setString(1, encryptedPassword);
+            pstmt.setInt(2, userId);
+            
+            return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

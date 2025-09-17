@@ -4,10 +4,12 @@ import com.game4399.service.GameService;
 import com.game4399.service.CommentService;
 import com.game4399.service.FavoritesService;
 import com.game4399.service.CategoryService;
+import com.game4399.service.UserService;
 import com.game4399.service.impl.GameServiceImpl;
 import com.game4399.service.impl.CommentServiceImpl;
 import com.game4399.service.impl.FavoritesServiceImpl;
 import com.game4399.service.impl.CategoryServiceImpl;
+import com.game4399.service.impl.UserServiceImpl;
 
 /**
  * 服务工厂类，用于创建和获取服务实例
@@ -17,6 +19,7 @@ public class ServiceFactory {
     private static CommentService commentService;
     private static FavoritesService favoritesService;
     private static CategoryService categoryService;
+    private static UserService userService;
     
     /**
      * 获取GameService实例
@@ -60,5 +63,16 @@ public class ServiceFactory {
             categoryService = new CategoryServiceImpl();
         }
         return categoryService;
+    }
+    
+    /**
+     * 获取UserService实例
+     * @return UserService实例
+     */
+    public static UserService getUserService() {
+        if (userService == null) {
+            userService = new UserServiceImpl();
+        }
+        return userService;
     }
 }

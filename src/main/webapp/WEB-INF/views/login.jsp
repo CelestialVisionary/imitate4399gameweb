@@ -20,25 +20,25 @@
         .register-link a { color: #ff6600; text-decoration: none; }
         .error-message { background-color: #ffebee; color: #c62828; padding: 10px; border-radius: 4px; margin-bottom: 15px; border: 1px solid #ffcdd2; }
         .success-message { background-color: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 4px; margin-bottom: 15px; border: 1px solid #a5d6a7; }
-        <script>
-            function validateLoginForm() {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                const usernameRegex = /^[a-zA-Z0-9_]{4,16}$/;
-                const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
-
-                if (!usernameRegex.test(username)) {
-                    alert('用户名必须为4-16位字母、数字或下划线');
-                    return false;
-                }
-                if (!passwordRegex.test(password)) {
-                    alert('密码至少6位，需包含字母和数字');
-                    return false;
-                }
-                return true;
-            }
-        </script>
     </style>
+    <script>
+        function validateLoginForm() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const usernameRegex = /^[a-zA-Z0-9_]{4,16}$/;
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
+
+            if (!usernameRegex.test(username)) {
+                alert('用户名必须为4-16位字母、数字或下划线');
+                return false;
+            }
+            if (!passwordRegex.test(password)) {
+                alert('密码至少6位，需包含字母和数字');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -72,6 +72,9 @@
                     <input type="password" id="password" name="password" required>
                 </div>
                 <button type="submit" class="btn-login">登录</button>
+                <div style="text-align: right; margin: 10px 0;">
+                    <a href="forgotPassword" style="color: #666; text-decoration: none;">忘记密码？</a>
+                </div>
                 <div class="register-link">
                     还没有账号？<a href="register">立即注册</a>
                 </div>

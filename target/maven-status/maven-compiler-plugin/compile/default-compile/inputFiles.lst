@@ -19,10 +19,17 @@ D:\imitate4399gameweb\src\main\java\com\game4399\service\impl\CategoryServiceImp
 D:\imitate4399gameweb\src\main\java\com\game4399\service\impl\CommentServiceImpl.java
 D:\imitate4399gameweb\src\main\java\com\game4399\service\impl\FavoritesServiceImpl.java
 D:\imitate4399gameweb\src\main\java\com\game4399\service\impl\GameServiceImpl.java
+D:\imitate4399gameweb\src\main\java\com\game4399\service\impl\UserServiceImpl.java
+D:\imitate4399gameweb\src\main\java\com\game4399\service\UserService.java
+D:\imitate4399gameweb\src\main\java\com\game4399\servlet\ForgotPasswordServlet.java
 D:\imitate4399gameweb\src\main\java\com\game4399\servlet\GameListServlet.java
 D:\imitate4399gameweb\src\main\java\com\game4399\servlet\LoginServlet.java
+D:\imitate4399gameweb\src\main\java\com\game4399\servlet\LogoutServlet.java
 D:\imitate4399gameweb\src\main\java\com\game4399\servlet\RegisterServlet.java
+D:\imitate4399gameweb\src\main\java\com\game4399\servlet\ResetPasswordServlet.java
+D:\imitate4399gameweb\src\main\java\com\game4399\servlet\UserProfileServlet.java
 D:\imitate4399gameweb\src\main\java\com\game4399\util\DBUtil.java
+D:\imitate4399gameweb\src\main\java\com\game4399\util\PasswordResetUtil.java
 D:\imitate4399gameweb\src\main\java\com\game4399\util\PasswordUtil.java
 D:\imitate4399gameweb\src\main\java\com\game4399\util\ServiceFactory.java
 D:\imitate4399gameweb\src\main\java\com\game4399\util\SQLScriptExecutor.java

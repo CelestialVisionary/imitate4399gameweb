@@ -333,8 +333,21 @@
                 <li><a href="game/category?name=策略">策略</a></li>
                 <li><a href="game/category?name=角色扮演">角色扮演</a></li>
                 <li><a href="game/category?name=射击">射击</a></li>
-                    <li class="auth-item"><a href="login">登录</a></li>
-        <li class="auth-item"><a href="register">注册</a></li>
+                    <% 
+                        // 检查用户是否已登录
+                        String username = (String) session.getAttribute("username");
+                        if (username != null) { 
+                    %>
+                        <li class="auth-item">欢迎，<%= username %></li>
+                        <li class="auth-item"><a href="logout">退出</a></li>
+                    <% 
+                        } else { 
+                    %>
+                        <li class="auth-item"><a href="login">登录</a></li>
+                        <li class="auth-item"><a href="register">注册</a></li>
+                    <% 
+                        } 
+                    %>
     </ul>
         </div>
     </nav>
