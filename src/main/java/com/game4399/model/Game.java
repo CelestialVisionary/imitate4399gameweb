@@ -12,7 +12,7 @@ public class Game {
     private String description; // 游戏描述
     private String imageUrl;    // 游戏图片URL
 // 由于 playUrl 字段值未被使用，移除该字段
-// 由于 playCount 字段值未被使用，移除该字段
+    private int playCount;      // 游戏播放次数
     private double rating;      // 游戏评分
     private String developer;   // 开发商
     private String releaseDate; // 发布日期
@@ -29,7 +29,7 @@ public class Game {
         this.description = description;
         this.imageUrl = imageUrl;
 // playUrl 字段已移除，该行代码删除
-// playCount 字段已被移除，删除该行代码
+        this.playCount = playCount;
         this.rating = rating;
         // 其他属性使用默认值
     }
@@ -91,6 +91,14 @@ public class Game {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getPlayCount() {
+        return playCount;
+    }
+
+    public void setPlayCount(int playCount) {
+        this.playCount = playCount;
     }
 
     public String getDeveloper() {
