@@ -14,6 +14,10 @@ public class ResetPasswordServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 设置编码
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        
         // 获取令牌参数
         String token = request.getParameter("token");
         
@@ -39,6 +43,10 @@ public class ResetPasswordServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 设置编码
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        
         // 获取表单数据
         String token = request.getParameter("token");
         String newPassword = request.getParameter("newPassword");

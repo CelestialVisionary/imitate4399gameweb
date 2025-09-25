@@ -15,11 +15,19 @@ public class ForgotPasswordServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 设置编码
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        
         // 处理GET请求，跳转到找回密码页面
         request.getRequestDispatcher("/WEB-INF/views/forgotPassword.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 设置编码
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        
         // 获取表单数据
         String username = request.getParameter("username");
         String email = request.getParameter("email");

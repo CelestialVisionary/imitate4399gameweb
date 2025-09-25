@@ -29,6 +29,10 @@ public class GameController extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 在所有GET请求中设置统一的编码
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        
         String pathInfo = request.getPathInfo();
         
         if (pathInfo == null || pathInfo.equals("/")) {
@@ -67,6 +71,10 @@ public class GameController extends HttpServlet {
     }
     
     private void showGamesByCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 设置请求编码为UTF-8，确保中文参数正确解析
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        
         String category = request.getParameter("name");
         if (category != null) {
             List<Game> games = gameService.getGamesByCategory(category);
